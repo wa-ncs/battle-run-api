@@ -10,4 +10,5 @@ public class HowMuchSpendApplication {
 		SpringApplication.run(HowMuchSpendApplication.class, args);
 	}
 
+
 }
