@@ -24,7 +24,7 @@ public class PostsRepositoryTest {
     }
 
     @Test
-    public void borad_view(){
+    public void repository_등록확인(){
         //given
         String title = "테스트 게시글";
         String content = "테스트 본문글";
