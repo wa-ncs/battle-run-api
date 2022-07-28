@@ -14,12 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberRepositoryTest {
     @Autowired MemberRepository memberRepository;
 
+
     @Test
     @Transactional
+//    transactional이 TESTCASE에 있으면 끝나고 롤백됨.
+//    @Rollback(false)
     public void testMember() throws Exception {
         // given
         Member member = new Member();
-        member.setUsername("member");
+        member.setName("member");
 
         // when
         Long saveId = memberRepository.save(member);
@@ -27,7 +30,7 @@ public class MemberRepositoryTest {
 
         // then
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-        Assertions.assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
-
+        Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
+        Assertions.assertThat(findMember).isEqualTo(member);
     }
 }

@@ -12,5 +12,5 @@ import javax.persistence.Id;
 public class Member {
     @Id @GeneratedValue
     private Long id;
-    private String username;
+    private String name;
 }
