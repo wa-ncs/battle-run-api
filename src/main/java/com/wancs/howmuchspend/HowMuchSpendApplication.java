@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HowMuchSpendApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(HowMuchSpendApplication.class, args);
 	}
 
