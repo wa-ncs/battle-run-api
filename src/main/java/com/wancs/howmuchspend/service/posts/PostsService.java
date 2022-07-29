@@ -20,14 +20,12 @@ public class PostsService {
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
-    //추삭수에 트랜잭션이 모두 걸리는걸로 아는데 얘는 왜 안걸었을까?
+    //추삭수에는 트랜잭션이 필요하다.
+    @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
-
-        posts.setTitle(requestDto.getTitle());
-        posts.setContent(requestDto.getContent());
-        postsRepository.save(posts);
+        posts.update(requestDto.getTitle(), requestDto.getContent());
         return id;
     }
 
@@ -37,6 +35,7 @@ public class PostsService {
         return new PostsResponseDto(posts);
     }
 
+    @Transactional
     public Long deletePost(Long id){
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id= "+id));
