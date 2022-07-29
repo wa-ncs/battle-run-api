@@ -3,9 +3,7 @@ package com.wancs.howmuchspend;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 @Repository
@@ -36,5 +34,10 @@ public class MemberRepository {
         return em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList();
+    }
+
+    public void remove(Long id) {
+        Member findMember = em.find(Member.class, id);
+        em.remove(findMember);
     }
 }
