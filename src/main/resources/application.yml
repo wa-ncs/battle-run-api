@@ -1,4 +1,41 @@
 server:
-  port: ${PORT}
+  port: ${port}
   tomcat:
     connectionTimeout: 300
+
+spring:
+  datasource:
+    url: ${database_url}
+    username: ${database_name}
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        # 지연로딩으로 발생해야 하는 쿼리를 IN절로 한번에 모아보내는 기능
+        default_batch_size: 100
+        # sql log format 설정 (이쁘게 나옴)
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    # sql log 추가
+    show_sql: ${show_sql}
+    generate-ddl: false
+
+springdoc:
+  api-docs:
+    # swagger endpoint 제공 유무 (상용: false, 나머지: true)
+    enabled: ${api-docs-enabled}
+  swagger-ui:
+    enabled: ${swagger-ui-enabled}
+    path: /swagger
+    doc-expansion: none
+
+logging:
+  level:
+    # hiberbate에서 생성하는 SQL LOG
+    org.hibernate.sql: DEBUG
+    org.hibernate.type: trace
+

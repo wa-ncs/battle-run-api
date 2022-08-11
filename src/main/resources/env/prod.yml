@@ -1,1 +1,10 @@
-TEST2: testValue(prod)
+test2: testValue(prod)
+
+# sql log
+show_sql: false
+
+# swagger endpoint 제공 유무
+api-docs-enabled: false
+
+# swagger ui 제공 유무
+swagger-ui-enabled: false

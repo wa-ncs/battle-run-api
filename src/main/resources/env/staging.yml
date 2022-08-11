@@ -1,1 +1,10 @@
-TEST2: testValue(staging)
+test2: testValue(staging)
+
+# sql log
+show_sql: false
+
+# swagger endpoint 제공 유무
+api-docs-enabled: true
+
+# swagger ui 제공 유무
+swagger-ui-enabled: true
