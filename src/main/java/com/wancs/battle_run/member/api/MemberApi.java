@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/members")
-public class MemberController {
+public class MemberApi {
 
     @Operation(summary = "전체 멤버 조회", description = "hello api example")
     @ApiResponses({
