@@ -1,4 +1,4 @@
-package com.wancs.battle_run.member.controller;
+package com.wancs.battle_run.member.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
