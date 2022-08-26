@@ -19,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/run")
 public class RunApi {
-    private RecordResponseDto recordResponseDto;
 
     @Operation(summary = "운동기록 저장")
     @ApiResponses({
@@ -34,6 +33,7 @@ public class RunApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        RecordResponseDto recordResponseDto = new RecordResponseDto();
         recordResponseDto.builder()
                 .build();
 
@@ -56,6 +56,7 @@ public class RunApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        RecordResponseDto recordResponseDto = new RecordResponseDto();
         recordResponseDto.builder()
                 .build();
 
@@ -78,6 +79,7 @@ public class RunApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        RecordResponseDto recordResponseDto = new RecordResponseDto();
         recordResponseDto.builder()
                 .build();
 
@@ -138,6 +140,7 @@ public class RunApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        RecordResponseDto recordResponseDto = new RecordResponseDto();
         recordResponseDto.builder()
                 .build();
 
