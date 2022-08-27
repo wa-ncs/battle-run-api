@@ -81,7 +81,7 @@ public class RecordApi {
     }
 
     //ToDo: 임의로 /total 로 지었는데 해당 path는 논의 후에 정하면 될 듯 합니다.
-    @Operation(summary = "전체 운동 기록 조회")
+    @Operation(summary = "누적 운동 기록 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
@@ -89,7 +89,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/total")
-    public ResponseEntity<ResponseDto<AllRecordResponseDto>> findAll() {
+    public ResponseEntity<ResponseDto<AllRecordResponseDto>> findTotal() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -108,7 +108,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> find() {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> findAll() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
