@@ -29,7 +29,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(value = "/save")
-    public ResponseEntity<RecordResponseDto> saveRecord(SaveRecordRequestDto saveRecordRequestDto) throws Exception {
+    public ResponseEntity<RecordResponseDto> saveRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -52,7 +52,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(value = "/customSave")
-    public ResponseEntity<RecordResponseDto> customSaveRecord(SaveRecordRequestDto saveRecordRequestDto) throws Exception {
+    public ResponseEntity<RecordResponseDto> customSaveRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -75,7 +75,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PutMapping(value = "/customUpdate")
-    public ResponseEntity<RecordResponseDto> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) throws Exception {
+    public ResponseEntity<RecordResponseDto> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -98,7 +98,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @DeleteMapping(value = "/{recordId}/customDelete")
-    public ResponseEntity<RecordResponseDto> customDeleteRecord(@PathVariable String recordId) throws Exception {
+    public ResponseEntity<RecordResponseDto> customDeleteRecord(@PathVariable String recordId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -116,7 +116,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/{userId}/allRecord")
-    public ResponseEntity<List<AllRecordResponseDto>> allRecord(@PathVariable String userId) throws Exception {
+    public ResponseEntity<List<AllRecordResponseDto>> allRecord(@PathVariable String userId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -136,7 +136,7 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/{recordId}/record")
-    public ResponseEntity<RecordResponseDto> record(@PathVariable String recordId) throws Exception {
+    public ResponseEntity<RecordResponseDto> record(@PathVariable String recordId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
