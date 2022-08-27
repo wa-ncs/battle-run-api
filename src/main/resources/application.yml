@@ -8,3 +8,5 @@ springdoc:
     path: /swagger-ui.html
     disable-swagger-default-url: true
     display-query-params-without-oauth2: true
+
+ApiPrefix: /api
