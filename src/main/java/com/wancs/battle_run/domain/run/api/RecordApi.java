@@ -27,7 +27,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PostMapping(value = "/")
+    @PostMapping(value = "")
     public ResponseEntity<ResponseDto<RecordResponseDto>> saveRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
@@ -48,7 +48,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PutMapping(value = "/")
+    @PutMapping(value = "")
     public ResponseEntity<ResponseDto<RecordResponseDto>> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
