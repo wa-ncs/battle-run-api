@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Getter
 @NoArgsConstructor
 public class RecordResponseDto {
@@ -12,13 +14,16 @@ public class RecordResponseDto {
     private String face;
     private int calorie;
     private String imageUrl;
+    private LocalTime registrationDate;
 
     @Builder
-    public RecordResponseDto(float distance, String runningTime, String face, int calorie, String imageUrl){
+    public RecordResponseDto(float distance, String runningTime, String face, int calorie,
+                             String imageUrl, LocalTime registrationDate){
         this.distance = distance;
         this.runningTime = runningTime;
         this.face = face;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
+        this.registrationDate = registrationDate;
     }
 }

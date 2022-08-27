@@ -1,6 +1,7 @@
 package com.wancs.battle_run.domain.run.api;
 
 import com.wancs.battle_run.domain.run.dto.AllRecordResponseDto;
+import com.wancs.battle_run.domain.run.dto.CommonResponseDto;
 import com.wancs.battle_run.domain.run.dto.RecordResponseDto;
 import com.wancs.battle_run.domain.run.dto.SaveRecordRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/run")
@@ -29,18 +28,16 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(value = "/save")
-    public ResponseEntity<RecordResponseDto> saveRecord(SaveRecordRequestDto saveRecordRequestDto) {
+    public ResponseEntity<CommonResponseDto<RecordResponseDto>> saveRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        RecordResponseDto recordResponseDto = new RecordResponseDto();
-        recordResponseDto.builder()
-                .build();
+        CommonResponseDto<RecordResponseDto> dto = new CommonResponseDto<RecordResponseDto>();
 
         return ResponseEntity
                 .created(URI.create("")) //.created(URI.create("/run/detail/" + id))
                 .headers(headers)
-                .body(recordResponseDto);
+                .body(dto);
     }
 
     @Operation(summary = "수기 운동기록 저장")
@@ -52,18 +49,16 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(value = "/customSave")
-    public ResponseEntity<RecordResponseDto> customSaveRecord(SaveRecordRequestDto saveRecordRequestDto) {
+    public ResponseEntity<CommonResponseDto<RecordResponseDto>> customSaveRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        RecordResponseDto recordResponseDto = new RecordResponseDto();
-        recordResponseDto.builder()
-                .build();
 
+        CommonResponseDto<RecordResponseDto> dto = new CommonResponseDto<RecordResponseDto>();
         return ResponseEntity
                 .created(URI.create("")) //.created(URI.create("/run/detail/" + id))
                 .headers(headers)
-                .body(recordResponseDto);
+                .body(dto);
     }
 
     @Operation(summary = "수기 운동기록 수정")
@@ -75,18 +70,16 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PutMapping(value = "/customUpdate")
-    public ResponseEntity<RecordResponseDto> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) {
+    public ResponseEntity<CommonResponseDto<RecordResponseDto>> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        RecordResponseDto recordResponseDto = new RecordResponseDto();
-        recordResponseDto.builder()
-                .build();
+        CommonResponseDto<RecordResponseDto> dto = new CommonResponseDto<RecordResponseDto>();
 
         return ResponseEntity
                 .created(URI.create("")) //.created(URI.create("/run/detail/" + id))
                 .headers(headers)
-                .body(recordResponseDto);
+                .body(dto);
     }
 
     @Operation(summary = "수기 운동기록 삭제")
@@ -116,16 +109,16 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/{userId}/allRecord")
-    public ResponseEntity<List<AllRecordResponseDto>> allRecord(@PathVariable String userId) {
+    public ResponseEntity<CommonResponseDto<AllRecordResponseDto>> allRecord(@PathVariable String userId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        List<AllRecordResponseDto> allRecordResponseDtos = new ArrayList<>();
+        CommonResponseDto<AllRecordResponseDto> dto = new CommonResponseDto<AllRecordResponseDto>();
 
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(allRecordResponseDtos);
+                .body(dto);
     }
 
     @Operation(summary = "유저별 단 건 운동 기록 조회")
@@ -136,18 +129,16 @@ public class RunApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/{recordId}/record")
-    public ResponseEntity<RecordResponseDto> record(@PathVariable String recordId) {
+    public ResponseEntity<CommonResponseDto<RecordResponseDto>> record(@PathVariable String recordId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        RecordResponseDto recordResponseDto = new RecordResponseDto();
-        recordResponseDto.builder()
-                .build();
+        CommonResponseDto<RecordResponseDto> dto = new CommonResponseDto<RecordResponseDto>();
 
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(recordResponseDto);
+                .body(dto);
     }
 
 }

@@ -5,23 +5,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class AllRecordResponseDto {
     private float totalDistance;
-    private float distance;
-    private String runningTime;
     private String totalRunningTime;
-    private LocalTime registrationDate;
+    private String totalFace;
+    private int totalCalorie;
+    List<RecordResponseDto> recordList;
 
     @Builder
-    public AllRecordResponseDto(float totalDistance, float distance, String totalRunningTime
-            ,String runningTime, LocalTime registrationDate){
+    public AllRecordResponseDto(float totalDistance, String totalRunningTime, String totalFace, int totalCalorie,
+                                List<RecordResponseDto> recordList){
         this.totalDistance = totalDistance;
-        this.distance = distance;
         this.totalRunningTime = totalRunningTime;
-        this.runningTime = runningTime;
-        this.registrationDate = registrationDate;
+        this.totalFace = totalFace;
+        this.totalCalorie = totalCalorie;
+        this.recordList = recordList;
+
     }
 }
