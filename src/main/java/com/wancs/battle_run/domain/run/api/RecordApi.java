@@ -28,7 +28,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @PostMapping(value = "")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> saveRecord(SaveRecordRequestDto saveRecordRequestDto) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> save(SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -48,8 +48,8 @@ public class RecordApi {
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
-    @PutMapping(value = "")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> customUpdateRecord(SaveRecordRequestDto saveRecordRequestDto) {
+    @PutMapping(value = "/{recordId}")
+    public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable Integer recordId, SaveRecordRequestDto saveRecordRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -70,7 +70,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @DeleteMapping(value = "/{recordId}")
-    public ResponseEntity<RecordResponseDto> customDeleteRecord(@PathVariable String recordId) {
+    public ResponseEntity<RecordResponseDto> delete(@PathVariable Integer recordId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -89,7 +89,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/total")
-    public ResponseEntity<ResponseDto<AllRecordResponseDto>> allRecord(@PathVariable String userId) {
+    public ResponseEntity<ResponseDto<AllRecordResponseDto>> findAll() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
@@ -100,7 +100,25 @@ public class RecordApi {
                 .headers(headers)
                 .body(dto);
     }
+    @Operation(summary = "운동 기록 조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
+    })
+    @GetMapping(value = "")
+    public ResponseEntity<ResponseDto<RecordResponseDto>> find() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
+        ResponseDto<RecordResponseDto> dto = new ResponseDto<RecordResponseDto>();
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(dto);
+    }
     @Operation(summary = "상세 운동 기록 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -109,7 +127,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR")
     })
     @GetMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> record(@PathVariable String recordId) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable String recordId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
