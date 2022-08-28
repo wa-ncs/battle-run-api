@@ -1,4 +1,4 @@
-package com.wancs.battle_run.domain.run.dto.response;
+package com.wancs.battle_run.domain.running.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

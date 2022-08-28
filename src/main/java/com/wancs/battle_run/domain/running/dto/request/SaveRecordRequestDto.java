@@ -1,4 +1,4 @@
-package com.wancs.battle_run.domain.run.dto.request;
+package com.wancs.battle_run.domain.running.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
