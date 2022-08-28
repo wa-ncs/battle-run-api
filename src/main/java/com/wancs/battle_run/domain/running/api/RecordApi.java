@@ -4,6 +4,7 @@ import com.wancs.battle_run.domain.running.dto.response.AllRecordResponseDto;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
+import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,7 +17,7 @@ import java.net.URI;
 import java.nio.charset.Charset;
 
 @RestControllerAdvice
-@RequestMapping("${api-prefix}/running/records")
+@RequestMapping("${api-prefix}/records")
 public class RecordApi {
 
     @Operation(summary = "러닝 기록 저장")
@@ -89,11 +90,17 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @GetMapping(value = "")
-    public ResponseEntity<ResponseDto<AllRecordResponseDto>> findAll() {
+    public ResponseEntity<ResponseDto<Object>> findAll() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        ResponseDto<AllRecordResponseDto> dto = new ResponseDto<AllRecordResponseDto>();
+        AllRecordResponseDto RecordDTO = new AllRecordResponseDto();
+
+        ResponseDto<Object> dto = ResponseDto.builder()
+                .code(StatusEnum.OK)
+                .message("success")
+                .data(RecordDTO).build();
+
         return ResponseEntity
                 .ok()
                 .headers(headers)

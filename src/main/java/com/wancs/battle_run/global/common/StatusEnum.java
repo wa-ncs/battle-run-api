@@ -6,10 +6,10 @@ public enum StatusEnum {
     NOT_FOUND(404, "NOT_FOUND"),
     INTERNAL_SERER_ERROR(500, "INTERNAL_SERER_ERROR");
 
-    int statusCode;
+    Integer statusCode;
     String code;
 
-    StatusEnum(int statusCode, String code){
+    StatusEnum(Integer statusCode, String code){
         this.statusCode = statusCode;
         this.code = code;
     }
