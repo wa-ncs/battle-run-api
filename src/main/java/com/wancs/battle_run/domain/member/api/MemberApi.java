@@ -1,4 +1,4 @@
-package com.wancs.battle_run.member.api;
+package com.wancs.battle_run.domain.member.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/members")
-public class MemberController {
+public class MemberApi {
 
     @Operation(summary = "전체 멤버 조회", description = "hello api example")
     @ApiResponses({
