@@ -5,7 +5,7 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'battle-run'
+rootProject.name = 'battle-run-api'
 include 'api'
 include 'auth'
 
