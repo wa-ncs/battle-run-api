@@ -3,6 +3,21 @@ server:
   tomcat:
     connectionTimeout: 300
 
+spring:
+  datasource:
+    url: ${database_url}
+    username: ${database_name}
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
@@ -12,3 +27,8 @@ springdoc:
     display-query-params-without-oauth2: true
 
 api-prefix: /api
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace

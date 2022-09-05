@@ -90,13 +90,13 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @GetMapping(value = "")
-    public ResponseEntity<ResponseDto<Object>> findAll() {
+    public ResponseEntity<ResponseDto<AllRecordResponseDto>> findAll() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
         AllRecordResponseDto RecordDTO = new AllRecordResponseDto();
 
-        ResponseDto<Object> dto = ResponseDto.builder()
+        ResponseDto<AllRecordResponseDto> dto = ResponseDto.<AllRecordResponseDto>builder()
                 .code(StatusEnum.OK)
                 .message("success")
                 .data(RecordDTO).build();
@@ -119,7 +119,11 @@ public class RecordApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        ResponseDto<RecordResponseDto> dto = new ResponseDto<RecordResponseDto>();
+        RecordResponseDto recordResponseDto = new RecordResponseDto();
+        ResponseDto<RecordResponseDto> dto = ResponseDto.builder()
+                .message("success")
+                .data(recordResponseDto)
+                .code(StatusEnum.OK).build();
 
         return ResponseEntity
                 .ok()

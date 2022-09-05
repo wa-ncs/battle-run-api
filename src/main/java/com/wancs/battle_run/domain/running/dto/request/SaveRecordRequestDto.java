@@ -1,5 +1,6 @@
 package com.wancs.battle_run.domain.running.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
