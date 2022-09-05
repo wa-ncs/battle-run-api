@@ -8,4 +8,3 @@ pluginManagement {
 rootProject.name = 'battle-run-api'
 include 'api'
 include 'auth'
-
