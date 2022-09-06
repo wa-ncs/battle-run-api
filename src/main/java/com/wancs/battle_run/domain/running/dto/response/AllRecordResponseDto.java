@@ -9,14 +9,14 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class AllRecordResponseDto {
-    private float totalDistance;
+    private Float totalDistance;
     private String totalRunningTime;
     private String totalFace;
-    private int totalCalorie;
+    private Integer totalCalorie;
     List<RecordResponseDto> recordList;
 
     @Builder
-    public AllRecordResponseDto(float totalDistance, String totalRunningTime, String totalFace, int totalCalorie,
+    public AllRecordResponseDto(Float totalDistance, String totalRunningTime, String totalFace, Integer totalCalorie,
                                 List<RecordResponseDto> recordList){
         this.totalDistance = totalDistance;
         this.totalRunningTime = totalRunningTime;
