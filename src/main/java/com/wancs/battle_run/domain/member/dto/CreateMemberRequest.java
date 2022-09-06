@@ -16,4 +16,5 @@ public class CreateMemberRequest {
 
     @NotEmpty
     private String email;
+
 }

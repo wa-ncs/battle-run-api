@@ -24,22 +24,22 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberApi {
 
-    private final MemberService memberService;
+//    private final MemberService memberService;
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<Object>> save(@RequestBody @Valid CreateMemberRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-        Long id = memberService.save(request);
+//        Long id = memberService.save(request);
 
         ResponseDto<Object> dto = ResponseDto.builder()
                 .code(StatusEnum.OK)
                 .message("success")
-                .data(id).build();
+                .data("1").build();
 
         return ResponseEntity
                 .ok()
@@ -52,12 +52,12 @@ public class MemberApi {
             @RequestBody @Valid UpdateMemberRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-        Long userId = memberService.update(id, request);
-        Member findMember = memberService.findOne(userId);
+/*        Long userId = memberService.update(id, request);
+        Member findMember = memberService.findOne(userId);*/
         ResponseDto<Object> dto = ResponseDto.builder()
                 .code(StatusEnum.OK)
                 .message("success")
-                .data(findMember).build();
+                .data("hello").build();
 
         return ResponseEntity
                 .ok()
@@ -74,7 +74,7 @@ public class MemberApi {
     @GetMapping("")
     public Map<String, Object> findAll() {
         Map<String, Object> response = new HashMap<>();
-        List<Member> findMembers = memberService.findMembers();
+//        List<Member> findMembers = memberService.findMembers();
 //      List<MembmerDTO> collect = findMembers.stream()
 //                        .map(m->new MemberDTO(m.getName()));
         response.put("data","hello");

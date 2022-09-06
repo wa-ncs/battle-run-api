@@ -120,7 +120,7 @@ public class RecordApi {
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
         RecordResponseDto recordResponseDto = new RecordResponseDto();
-        ResponseDto<RecordResponseDto> dto = ResponseDto.builder()
+        ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
                 .message("success")
                 .data(recordResponseDto)
                 .code(StatusEnum.OK).build();
