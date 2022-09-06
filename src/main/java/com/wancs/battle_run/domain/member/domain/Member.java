@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public class Member extends BaseTimeEntity {
 
     @Id
