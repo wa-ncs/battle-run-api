@@ -6,6 +6,7 @@ import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
+
 import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Optional;
 
 @RestControllerAdvice
 @RequestMapping("${api-prefix}/records")
