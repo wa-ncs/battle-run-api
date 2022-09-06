@@ -1,7 +1,6 @@
 package com.wancs.battle_run.domain.member.application;
 
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
-import com.wancs.battle_run.domain.member.domain.Member;
 import com.wancs.battle_run.domain.member.dto.CreateMemberRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "spring.profiles.active:local")
 @Transactional
-class MemberServiceTest {
+class MemberServiceImplTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;

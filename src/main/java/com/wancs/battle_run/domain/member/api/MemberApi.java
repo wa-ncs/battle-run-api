@@ -18,31 +18,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberApi {
 
-//    private final MemberService memberService;
+    private final MemberService memberService;
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<Object>> save(@RequestBody @Valid CreateMemberRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-//        Long id = memberService.save(request);
+
+        Long savedId = memberService.save(request);
+        Member findMember = memberService.findById(savedId);
 
         ResponseDto<Object> dto = ResponseDto.builder()
                 .code(StatusEnum.OK)
                 .message("success")
-                .data("1").build();
+                .data(findMember).build();
 
         return ResponseEntity
-                .ok()
+                .created(URI.create("/members/"+savedId))
                 .headers(headers)
                 .body(dto);
     }
@@ -63,37 +66,5 @@ public class MemberApi {
                 .ok()
                 .headers(headers)
                 .body(dto);
-    }
-    @Operation(summary = "전체 멤버 조회", description = "hello api example")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
-    })
-    @GetMapping("")
-    public Map<String, Object> findAll() {
-        Map<String, Object> response = new HashMap<>();
-//        List<Member> findMembers = memberService.findMembers();
-//      List<MembmerDTO> collect = findMembers.stream()
-//                        .map(m->new MemberDTO(m.getName()));
-        response.put("data","hello");
-        return response;
-    }
-    @Operation(summary = "멤버 조회", description = "hello api example")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
-    })
-    @GetMapping("/{id}")
-    public Map<String, Object> find(
-            @Parameter(description = "id", required = true, example = "1")
-            @PathVariable("id") Long id
-    ) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data","hello");
-        return response;
     }
 }
