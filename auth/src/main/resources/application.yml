@@ -1,0 +1,14 @@
+server:
+  port: ${port}
+  tomcat:
+    connectionTimeout: 300
+
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+
+api-prefix: /api

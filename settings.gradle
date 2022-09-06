@@ -5,4 +5,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'how-much-spend'
+rootProject.name = 'battle-run-api'
+include 'api'
+include 'auth'
