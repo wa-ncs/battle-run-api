@@ -1,6 +1,6 @@
 package com.wancs.battle_run.domain.running.dto.response;
 
-import com.wancs.battle_run.domain.running.Entity.Record;
+import com.wancs.battle_run.domain.running.entity.Record;
 import lombok.Getter;
 
 @Getter

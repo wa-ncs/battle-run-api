@@ -1,6 +1,6 @@
 package com.wancs.battle_run.domain.running.dto.request;
 
-import com.wancs.battle_run.domain.running.Entity.Record;
+import com.wancs.battle_run.domain.running.entity.Record;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

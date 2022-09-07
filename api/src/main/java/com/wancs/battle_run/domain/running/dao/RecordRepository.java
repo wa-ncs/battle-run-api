@@ -1,6 +1,6 @@
-package com.wancs.battle_run.domain.running.repository;
+package com.wancs.battle_run.domain.running.dao;
 
-import com.wancs.battle_run.domain.running.Entity.Record;
+import com.wancs.battle_run.domain.running.entity.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

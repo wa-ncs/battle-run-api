@@ -1,4 +1,4 @@
-package com.wancs.battle_run.domain.running.Entity;
+package com.wancs.battle_run.domain.running.entity;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package com.wancs.battle_run.domain.running.service;
 
-import com.wancs.battle_run.domain.running.Entity.Record;
+import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
-import com.wancs.battle_run.domain.running.repository.RecordRepository;
+import com.wancs.battle_run.domain.running.dao.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

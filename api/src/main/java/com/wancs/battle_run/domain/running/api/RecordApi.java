@@ -1,6 +1,6 @@
 package com.wancs.battle_run.domain.running.api;
 
-import com.wancs.battle_run.domain.running.Entity.Record;
+import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.response.AllRecordResponseDto;
 import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
