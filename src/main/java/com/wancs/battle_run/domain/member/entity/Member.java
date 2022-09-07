@@ -1,13 +1,9 @@
-package com.wancs.battle_run.domain.member.domain;
+package com.wancs.battle_run.domain.member.entity;
 
 import com.wancs.battle_run.global.common.BaseTimeEntity;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

@@ -1,7 +1,7 @@
 package com.wancs.battle_run.domain.member.application;
 
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
-import com.wancs.battle_run.domain.member.dto.CreateMemberRequest;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

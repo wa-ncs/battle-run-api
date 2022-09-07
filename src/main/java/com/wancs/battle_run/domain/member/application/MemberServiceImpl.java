@@ -1,9 +1,8 @@
 package com.wancs.battle_run.domain.member.application;
 
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
-import com.wancs.battle_run.domain.member.domain.Member;
-import com.wancs.battle_run.domain.member.dto.CreateMemberRequest;
-import com.wancs.battle_run.domain.member.dto.UpdateMemberRequest;
+import com.wancs.battle_run.domain.member.entity.Member;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

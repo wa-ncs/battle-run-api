@@ -1,7 +1,7 @@
 package com.wancs.battle_run.domain.member.application;
 
-import com.wancs.battle_run.domain.member.domain.Member;
-import com.wancs.battle_run.domain.member.dto.CreateMemberRequest;
+import com.wancs.battle_run.domain.member.entity.Member;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
 
 public interface MemberService {
 

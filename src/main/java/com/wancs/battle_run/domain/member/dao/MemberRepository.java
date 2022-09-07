@@ -1,11 +1,10 @@
 package com.wancs.battle_run.domain.member.dao;
 
-import com.wancs.battle_run.domain.member.domain.Member;
+import com.wancs.battle_run.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository

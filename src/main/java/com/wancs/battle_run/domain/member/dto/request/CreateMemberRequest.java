@@ -1,4 +1,4 @@
-package com.wancs.battle_run.domain.member.dto;
+package com.wancs.battle_run.domain.member.dto.request;
 
 import lombok.*;
 
