@@ -8,9 +8,9 @@ import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,10 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @RestControllerAdvice
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
@@ -32,11 +28,11 @@ public class MemberApi {
     private final MemberService memberService;
 
     @PostMapping("")
-    public ResponseEntity<ResponseDto<Object>> save(@RequestBody @Valid CreateMemberRequest request) {
+    public ResponseEntity<ResponseDto<Object>> save(@Valid @RequestBody CreateMemberRequest createMemberRequest) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        Long savedId = memberService.save(request);
+        Long savedId = memberService.save(createMemberRequest);
         Member findMember = memberService.findById(savedId);
 
         ResponseDto<Object> dto = ResponseDto.builder()
