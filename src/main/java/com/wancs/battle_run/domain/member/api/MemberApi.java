@@ -26,8 +26,6 @@ public class MemberApi {
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<MemberResponse>> save(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
         Long savedId = memberService.save(createMemberRequestDto);
         Member findMember = memberService.findById(savedId);
@@ -40,15 +38,12 @@ public class MemberApi {
 
         return ResponseEntity
                 .created(URI.create("/members/"+savedId))
-                .headers(headers)
                 .body(dto);
     }
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<MemberResponse>> update(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateMemberRequestDto requestDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
         Long userId = memberService.update(id, requestDto);
         Member findMember = memberService.findById(userId);
@@ -60,7 +55,6 @@ public class MemberApi {
 
         return ResponseEntity
                 .ok()
-                .headers(headers)
                 .body(dto);
     }
 }

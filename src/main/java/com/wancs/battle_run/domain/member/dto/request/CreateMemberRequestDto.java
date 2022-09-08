@@ -10,7 +10,6 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class CreateMemberRequestDto {
     @NotNull
-    @Min(2)
     @NotBlank
     private String name;
     @NotNull
