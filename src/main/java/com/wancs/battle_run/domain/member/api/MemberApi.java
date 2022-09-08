@@ -1,10 +1,10 @@
 package com.wancs.battle_run.domain.member.api;
 
 import com.wancs.battle_run.domain.member.application.MemberService;
-import com.wancs.battle_run.domain.member.dto.response.CreateMemberResponse;
+import com.wancs.battle_run.domain.member.dto.response.MemberResponse;
 import com.wancs.battle_run.domain.member.entity.Member;
-import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
-import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequest;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,17 +25,17 @@ public class MemberApi {
     private final MemberService memberService;
 
     @PostMapping("")
-    public ResponseEntity<ResponseDto<CreateMemberResponse>> save(@Valid @RequestBody CreateMemberRequest createMemberRequest) {
+    public ResponseEntity<ResponseDto<MemberResponse>> save(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
 
-        Long savedId = memberService.save(createMemberRequest);
+        Long savedId = memberService.save(createMemberRequestDto);
         Member findMember = memberService.findById(savedId);
 
-        ResponseDto<CreateMemberResponse> dto = ResponseDto.<CreateMemberResponse>builder()
-                .code(StatusEnum.OK)
+        ResponseDto<MemberResponse> dto = ResponseDto.<MemberResponse>builder()
+                .code(StatusEnum.CREATED)
                 .message("success")
-                .data(CreateMemberResponse.fromEntity(findMember))
+                .data(MemberResponse.fromEntity(findMember))
                 .build();
 
         return ResponseEntity
@@ -43,18 +43,20 @@ public class MemberApi {
                 .headers(headers)
                 .body(dto);
     }
-    @PutMapping("")
-    public ResponseEntity<ResponseDto<Object>> update(
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDto<MemberResponse>> update(
             @PathVariable("id") Long id,
-            @RequestBody @Valid UpdateMemberRequest request) {
+            @RequestBody @Valid UpdateMemberRequestDto requestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-/*        Long userId = memberService.update(id, request);
-        Member findMember = memberService.findOne(userId);*/
-        ResponseDto<Object> dto = ResponseDto.builder()
+
+        Long userId = memberService.update(id, requestDto);
+        Member findMember = memberService.findById(userId);
+
+        ResponseDto<MemberResponse> dto = ResponseDto.<MemberResponse>builder()
                 .code(StatusEnum.OK)
                 .message("success")
-                .data("hello").build();
+                .data(MemberResponse.fromEntity(findMember)).build();
 
         return ResponseEntity
                 .ok()

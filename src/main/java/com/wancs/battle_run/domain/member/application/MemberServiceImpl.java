@@ -1,8 +1,9 @@
 package com.wancs.battle_run.domain.member.application;
 
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
+import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
 import com.wancs.battle_run.domain.member.entity.Member;
-import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +19,8 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long save(CreateMemberRequest request) {
-        Member member = Member.builder()
-                .name(request.getName())
-                .nickName(request.getNickName())
-                .email(request.getEmail())
-                .build();
+    public Long save(CreateMemberRequestDto requestDto) {
+        Member member = requestDto.toEntity();
         validateDuplicateMember(member);
         Long saveId = memberRepository.save(member);
         return saveId;
@@ -42,13 +39,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
 //
-//
-//    //@Transactional
-//    public Long update(Long id, UpdateMemberRequest request) {
-//        Member member= memberRepository.findOne(id);
-//        member.setName(request.getName());
-//        return member.getId();
-//    }
+    @Transactional
+    public Long update(Long id, UpdateMemberRequestDto requestDto) {
+        Member member= memberRepository.findById(id);
+        member.changeInfo(requestDto);
+        return member.getId();
+    }
 //
 //    public Member findOne(Long id) {
 //    }

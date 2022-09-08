@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
-public class UpdateMemberRequest {
+public class UpdateMemberRequestDto {
     @NotEmpty
     private String name;
     @NotEmpty

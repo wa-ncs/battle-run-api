@@ -1,15 +1,16 @@
 package com.wancs.battle_run.domain.member.application;
 
+import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
 import com.wancs.battle_run.domain.member.entity.Member;
-import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequest;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
 
 public interface MemberService {
 
     Member findById(Long memberId);
 
-    Long save(CreateMemberRequest member);
+    Long save(CreateMemberRequestDto member);
 
-//    Member update(Long id, MemberDTO member);
+    Long update(Long id, UpdateMemberRequestDto member);
 
 //    void delete(Long id);
 }
