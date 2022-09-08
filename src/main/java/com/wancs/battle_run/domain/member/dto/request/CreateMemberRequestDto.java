@@ -3,22 +3,21 @@ package com.wancs.battle_run.domain.member.dto.request;
 import com.wancs.battle_run.domain.member.entity.Member;
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateMemberRequestDto {
     @NotNull
-    @NotEmpty
+    @Min(2)
+    @NotBlank
     private String name;
     @NotNull
-    @NotEmpty
+    @NotBlank
     private String nickName;
     @NotNull
-    @NotEmpty
+    @NotBlank
     @Email
     private String email;
 

@@ -7,6 +7,7 @@ import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
-        if(!findMembers.isEmpty()) {
+        if(!ObjectUtils.isEmpty(findMembers)) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
