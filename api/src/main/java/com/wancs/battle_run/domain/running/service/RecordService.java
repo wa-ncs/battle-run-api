@@ -1,5 +1,6 @@
 package com.wancs.battle_run.domain.running.service;
 
+import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dao.RecordRepository;
@@ -40,5 +41,12 @@ public class RecordService {
     @Transactional
     public void deleteById(Long recordId){
         recordRepository.deleteById(recordId);
+    }
+
+    @Transactional
+    public Long update(Long id, UpdateRecordRequestDto requestDto){
+        Record record = this.findByRecord(id);
+        record.changeRecord(requestDto);
+        return record.getId();
     }
 }

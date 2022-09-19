@@ -1,24 +1,33 @@
 package com.wancs.battle_run.domain.running.dto.request;
 
 import com.wancs.battle_run.domain.running.entity.Record;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
 @NoArgsConstructor
 public class SaveRecordRequestDto {
     private Long userId;
+    @NotNull
+    @NotBlank
     private Float distance;
-    private String runningTime;
-    private String face;
+    @NotNull
+    @NotBlank
+    private Long runningTime;
+    @NotNull
+    @NotBlank
+    private Float face;
+    @NotNull
+    @NotBlank
     private Integer calorie;
+    @NotNull
+    @NotBlank
     private String imageUrl;
 
     @Builder
-    public SaveRecordRequestDto(Long userId, Float distance, String runningTime, String face, Integer calorie, String imageUrl){
+    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Float face, Integer calorie, String imageUrl){
         this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;

@@ -8,21 +8,20 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class AllRecordResponseDto {
+public class TotalRecordResponseDto {
     private Float totalDistance;
-    private String totalRunningTime;
-    private String totalFace;
+    private Long totalRunningTime;
+    private Float totalFace;
     private Integer totalCalorie;
     List<RecordResponseDto> recordList;
 
     @Builder
-    public AllRecordResponseDto(Float totalDistance, String totalRunningTime, String totalFace, Integer totalCalorie,
-                                List<RecordResponseDto> recordList){
+    public TotalRecordResponseDto(Float totalDistance, Long totalRunningTime, Float totalFace, Integer totalCalorie,
+                                  List<RecordResponseDto> recordList){
         this.totalDistance = totalDistance;
         this.totalRunningTime = totalRunningTime;
         this.totalFace = totalFace;
         this.totalCalorie = totalCalorie;
         this.recordList = recordList;
-
     }
 }

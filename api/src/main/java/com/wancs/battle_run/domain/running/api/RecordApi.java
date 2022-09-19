@@ -1,7 +1,8 @@
 package com.wancs.battle_run.domain.running.api;
 
+import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
+import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Record;
-import com.wancs.battle_run.domain.running.dto.response.AllRecordResponseDto;
 import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
@@ -12,17 +13,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.util.List;
 
 @RestControllerAdvice
-@RequestMapping("${api-prefix}/records")
+@RequestMapping("/api/records")
 public class RecordApi {
     @Autowired
     private RecordService recordService;
@@ -36,10 +35,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @PostMapping(value = "")
-    public ResponseEntity<ResponseDto<Record>> save(SaveRecordRequestDto saveRecordRequestDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-
+    public ResponseEntity<ResponseDto<Record>> save(@Valid SaveRecordRequestDto saveRecordRequestDto) {
         Long recordId = recordService.save(saveRecordRequestDto);
         Record record = recordService.findByRecord(recordId);
 
@@ -49,8 +45,7 @@ public class RecordApi {
                 .build();
 
         return ResponseEntity
-                .created(URI.create("")) //.created(URI.create("/run/detail/" + id))
-                .headers(headers)
+                .created(URI.create("/records/"+recordId))
                 .body(dto);
     }
 
@@ -63,15 +58,17 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @PutMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable Long recordId, SaveRecordRequestDto saveRecordRequestDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+    public ResponseEntity<ResponseDto<Record>> update(@PathVariable(required = true) Long recordId, @Valid UpdateRecordRequestDto updateRecordRequestDto) {
+        Long id = recordService.update(recordId, updateRecordRequestDto);
+        Record record = recordService.findByRecord(id);
 
-        ResponseDto<RecordResponseDto> dto = new ResponseDto<RecordResponseDto>();
+        ResponseDto<Record> dto = ResponseDto.<Record>builder()
+                .data(record)
+                .code(StatusEnum.OK)
+                .build();
 
         return ResponseEntity
-                .created(URI.create("")) //.created(URI.create("/run/detail/" + id))
-                .headers(headers)
+                .ok()
                 .body(dto);
     }
 
@@ -84,15 +81,11 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @DeleteMapping(value = "/{recordId}")
-    public ResponseEntity<RecordResponseDto> deleteById(@PathVariable Long recordId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-
+    public ResponseEntity<RecordResponseDto> deleteById(@PathVariable(required = true) Long recordId) {
         recordService.deleteById(recordId);
 
         return ResponseEntity
                 .noContent()
-                .headers(headers)
                 .build();
     }
 
@@ -104,23 +97,44 @@ public class RecordApi {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "422", description = "Required"),
     })
-    @GetMapping(value = "")
-    public ResponseEntity<ResponseDto<Object>> findRecordByUserId(@PathVariable Long userId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
+    @GetMapping(value = "{userId}")
+    public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordByUserId(@PathVariable(required = true) Long userId) {
+        Float totalDistance = 0F;
+        Long totalRunningTime = 0L;
+        Integer totalCalorie = 0;
+        List<RecordResponseDto> recordList = null;
 
         List<Record> records = recordService.findRecordsByUserId(userId);
 
-        AllRecordResponseDto RecordDTO = new AllRecordResponseDto();
+        for(Record record : records){
+            RecordResponseDto recordResponse = RecordResponseDto.builder()
+                    .entity(record)
+                    .build();
+            recordList.add(recordResponse);
 
-        ResponseDto<Object> dto = ResponseDto.builder()
+            totalDistance += record.getDistance();
+            totalRunningTime += record.getRunningTime();
+            totalCalorie += record.getCalorie();
+        }
+
+        Float totalFace = (totalDistance / totalRunningTime * 100) / 100;
+
+        TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
+                .totalDistance(totalDistance)
+                .totalRunningTime(totalRunningTime)
+                .totalFace(totalFace)
+                .totalCalorie(totalCalorie)
+                .recordList(recordList)
+                .build();
+
+        ResponseDto<TotalRecordResponseDto> dto = ResponseDto.<TotalRecordResponseDto>builder()
                 .code(StatusEnum.OK)
                 .message("success")
-                .data(RecordDTO).build();
+                .data(responseDto)
+                .build();
 
         return ResponseEntity
                 .ok()
-                .headers(headers)
                 .body(dto);
     }
     @Operation(summary = "개인 러닝 상세 조회")
@@ -132,10 +146,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @GetMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<Record>> findById(@PathVariable Long recordId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application","json", Charset.forName("UTF-8")));
-
+    public ResponseEntity<ResponseDto<Record>> findById(@PathVariable(required = true) Long recordId) {
         Record record = recordService.findByRecord(recordId);
 
         ResponseDto<Record> dto = ResponseDto.<Record>builder()
@@ -145,7 +156,6 @@ public class RecordApi {
 
         return ResponseEntity
                 .ok()
-                .headers(headers)
                 .body(dto);
     }
 }
