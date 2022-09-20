@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
@@ -97,12 +98,12 @@ public class RecordApi {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "422", description = "Required"),
     })
-    @GetMapping(value = "{userId}")
+    @GetMapping(value = "/user/{userId}")
     public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordByUserId(@PathVariable(required = true) Long userId) {
         Float totalDistance = 0F;
         Long totalRunningTime = 0L;
         Integer totalCalorie = 0;
-        List<RecordResponseDto> recordList = null;
+        List<RecordResponseDto> recordList = new ArrayList<>();
 
         List<Record> records = recordService.findRecordsByUserId(userId);
 
@@ -117,12 +118,12 @@ public class RecordApi {
             totalCalorie += record.getCalorie();
         }
 
-        Float totalFace = (totalDistance / totalRunningTime * 100) / 100;
+        //온전한 형태의 시간이 아닌 ms 형태의 시간이라 프론트에서 totalFace 계산해주기
+        //Float totalFace = (totalDistance / totalRunningTime * 100) / 100;
 
         TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
                 .totalDistance(totalDistance)
                 .totalRunningTime(totalRunningTime)
-                .totalFace(totalFace)
                 .totalCalorie(totalCalorie)
                 .recordList(recordList)
                 .build();

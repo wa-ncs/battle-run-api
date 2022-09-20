@@ -11,16 +11,14 @@ import java.util.List;
 public class TotalRecordResponseDto {
     private Float totalDistance;
     private Long totalRunningTime;
-    private Float totalFace;
     private Integer totalCalorie;
     List<RecordResponseDto> recordList;
 
     @Builder
-    public TotalRecordResponseDto(Float totalDistance, Long totalRunningTime, Float totalFace, Integer totalCalorie,
+    public TotalRecordResponseDto(Float totalDistance, Long totalRunningTime, Integer totalCalorie,
                                   List<RecordResponseDto> recordList){
         this.totalDistance = totalDistance;
         this.totalRunningTime = totalRunningTime;
-        this.totalFace = totalFace;
         this.totalCalorie = totalCalorie;
         this.recordList = recordList;
     }
