@@ -3,18 +3,18 @@ package com.wancs.battle_run.domain.running.dao;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.service.RecordService;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(properties = "spring.profiles.active:local")
 public class RecordRepositoryTest {
 
@@ -24,7 +24,7 @@ public class RecordRepositoryTest {
     @Autowired
     RecordService recordService;
 
-    @After
+    @After("")
     public void cleanup(){
         recordRepository.deleteAll();
     }

@@ -18,7 +18,7 @@ public class RecordService {
 
     public List<Record> findRecordsByUserId(Long userId){
         return recordRepository
-                .findRecordByUserId(userId)
+                .findRecordsByUserId(userId)
                 .stream()
                 .collect(Collectors.toList());
     }

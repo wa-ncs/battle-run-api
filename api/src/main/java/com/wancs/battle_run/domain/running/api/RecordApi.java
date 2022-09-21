@@ -98,8 +98,8 @@ public class RecordApi {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "422", description = "Required"),
     })
-    @GetMapping(value = "/user/{userId}")
-    public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordByUserId(@PathVariable(required = true) Long userId) {
+    @GetMapping(value = "")
+    public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordsByUserId(@RequestParam Long userId) {
         Float totalDistance = 0F;
         Long totalRunningTime = 0L;
         Integer totalCalorie = 0;

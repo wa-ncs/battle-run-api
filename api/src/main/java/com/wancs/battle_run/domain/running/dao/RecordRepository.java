@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record,Long> {
-    public List<Record> findRecordByUserId(Long userId);
+    public List<Record> findRecordsByUserId(Long userId);
 }

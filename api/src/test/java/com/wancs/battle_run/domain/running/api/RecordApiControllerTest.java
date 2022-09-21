@@ -3,9 +3,9 @@ package com.wancs.battle_run.domain.running.api;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dao.RecordRepository;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -14,14 +14,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active:local")
 public class RecordApiControllerTest {
     @LocalServerPort
@@ -33,7 +32,7 @@ public class RecordApiControllerTest {
     @Autowired
     private RecordRepository recordRepository;
 
-    @After
+    @After("")
     public void tearDown() throws Exception {
         recordRepository.deleteAll();
     }
