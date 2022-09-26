@@ -1,0 +1,34 @@
+server:
+  port: ${port}
+  tomcat:
+    connectionTimeout: 300
+
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: /swagger
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+
+api-prefix: /api
+
+spring:
+  datasource:
+    url: ${database_url}
+    username: ${database_name}
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2
