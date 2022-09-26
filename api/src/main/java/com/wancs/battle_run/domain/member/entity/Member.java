@@ -1,7 +1,7 @@
 package com.wancs.battle_run.domain.member.entity;
 
 import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
-import com.wancs.battle_run.global.common.BaseTimeEntity;
+import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseTimeEntity {
+public class Member extends CommonEntity {
 
     @Id
     @GeneratedValue

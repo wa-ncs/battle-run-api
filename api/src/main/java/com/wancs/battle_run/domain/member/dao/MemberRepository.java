@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepository extends JpaRepository {
+public class MemberRepository {
 
     //@PersistenceContext
     private final EntityManager em;
