@@ -16,8 +16,6 @@ public class MemberRepository extends JpaRepository {
     private final EntityManager em;
 
     public Long save(Member member) {
-        String test ="";
-        test.equals()
         em.persist(member);
         return member.getId();
     }
