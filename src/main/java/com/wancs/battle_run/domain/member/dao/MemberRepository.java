@@ -2,6 +2,7 @@ package com.wancs.battle_run.domain.member.dao;
 
 import com.wancs.battle_run.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,12 +10,14 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberRepository {
+public class MemberRepository extends JpaRepository {
 
     //@PersistenceContext
     private final EntityManager em;
 
     public Long save(Member member) {
+        String test ="";
+        test.equals()
         em.persist(member);
         return member.getId();
     }
