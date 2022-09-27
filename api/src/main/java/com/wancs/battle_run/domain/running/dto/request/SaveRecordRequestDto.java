@@ -1,25 +1,49 @@
 package com.wancs.battle_run.domain.running.dto.request;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import com.wancs.battle_run.domain.running.entity.Record;
+import lombok.*;
 
-@Getter
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
 @NoArgsConstructor
 public class SaveRecordRequestDto {
-    private float distance;
-    private String runningTime;
-    private String face;
-    private int calorie;
-    private MultipartFile imageFile;
+    private Long userId;
+    @NotNull
+    @NotBlank
+    private Float distance;
+    @NotNull
+    @NotBlank
+    private Long runningTime;
+    @NotNull
+    @NotBlank
+    private Float face;
+    @NotNull
+    @NotBlank
+    private Integer calorie;
+    @NotNull
+    @NotBlank
+    private String imageUrl;
 
     @Builder
-    public SaveRecordRequestDto(float distance, String runningTime, String face, int calorie, MultipartFile imageFile){
+    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Float face, Integer calorie, String imageUrl){
+        this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;
         this.face = face;
         this.calorie = calorie;
-        this.imageFile = imageFile;
+        this.imageUrl = imageUrl;
+    }
+
+    public Record toEntity(){
+        return Record.builder()
+                .userId(this.userId)
+                .distance(this.distance)
+                .runningTime(this.runningTime)
+                .face(this.face)
+                .calorie(this.calorie)
+                .imageUrl(this.imageUrl)
+                .build();
     }
 }

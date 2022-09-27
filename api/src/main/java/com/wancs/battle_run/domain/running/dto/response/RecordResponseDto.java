@@ -1,29 +1,26 @@
 package com.wancs.battle_run.domain.running.dto.response;
 
+import com.wancs.battle_run.domain.running.entity.Record;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalTime;
 
 @Getter
-@NoArgsConstructor
 public class RecordResponseDto {
-    private float distance;
-    private String runningTime;
-    private String face;
-    private int calorie;
+    private Long id;
+    private Float distance;
+    private Long runningTime;
+    private Float face;
+    private Integer calorie;
     private String imageUrl;
-    private LocalTime registrationDate;
+
 
     @Builder
-    public RecordResponseDto(float distance, String runningTime, String face, int calorie,
-                             String imageUrl, LocalTime registrationDate){
-        this.distance = distance;
-        this.runningTime = runningTime;
-        this.face = face;
-        this.calorie = calorie;
-        this.imageUrl = imageUrl;
-        this.registrationDate = registrationDate;
+    public RecordResponseDto(Record entity){
+        this.id = entity.getId();
+        this.distance = entity.getDistance();
+        this.runningTime = entity.getRunningTime();
+        this.face = entity.getFace();
+        this.calorie = entity.getCalorie();
+        this.imageUrl = entity.getImageUrl();
     }
 }
