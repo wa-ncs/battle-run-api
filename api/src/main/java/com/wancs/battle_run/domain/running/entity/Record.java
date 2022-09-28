@@ -1,6 +1,7 @@
 package com.wancs.battle_run.domain.running.entity;
 
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
+import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Record {
+public class Record extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
