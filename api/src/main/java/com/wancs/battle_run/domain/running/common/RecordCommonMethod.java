@@ -3,7 +3,7 @@ package com.wancs.battle_run.domain.running.common;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RecordCommonMethord {
+public class RecordCommonMethod {
 
     public String getMinuteFace(Float distance, Long runningTime){
         if(distance <= 0 || runningTime <= 0){

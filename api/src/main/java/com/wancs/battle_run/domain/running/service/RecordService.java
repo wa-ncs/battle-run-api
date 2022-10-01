@@ -1,6 +1,6 @@
 package com.wancs.battle_run.domain.running.service;
 
-import com.wancs.battle_run.domain.running.common.RecordCommonMethord;
+import com.wancs.battle_run.domain.running.common.RecordCommonMethod;
 import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecordService {
     private final RecordRepository recordRepository;
-    private final RecordCommonMethord recordCommonMethord;
+    private final RecordCommonMethod recordCommonMethod;
 
     public TotalRecordResponseDto findRecordsByUserId(Long userId){
         List<RecordResponseDto> recordList = new ArrayList<>();
@@ -38,7 +38,7 @@ public class RecordService {
         Float totalDistance = totalRecord.getTotalDistance();
         Long totalRunningTime = totalRecord.getTotalRunningTime();
 
-        String totalFace = recordCommonMethord.getMinuteFace(totalDistance, totalRunningTime);
+        String totalFace = recordCommonMethod.getMinuteFace(totalDistance, totalRunningTime);
 
         TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
                 .totalDistance(totalDistance)
@@ -59,7 +59,7 @@ public class RecordService {
 
     @Transactional
     public Long save(SaveRecordRequestDto requestDto){
-        String face = recordCommonMethord.getMinuteFace(requestDto.getDistance(), requestDto.getRunningTime());
+        String face = recordCommonMethod.getMinuteFace(requestDto.getDistance(), requestDto.getRunningTime());
         requestDto.setFace(face);
 
         Record record = requestDto.toEntity();
@@ -78,7 +78,7 @@ public class RecordService {
     public Long update(Long id, UpdateRecordRequestDto requestDto){
         //거리와 시간이 바뀐 데이터로 넘어왔다면 face도 다시 계산
         if(requestDto.getDistance() > 0 && requestDto.getRunningTime() > 0){
-            String face = recordCommonMethord.getMinuteFace(requestDto.getDistance(), requestDto.getRunningTime());
+            String face = recordCommonMethod.getMinuteFace(requestDto.getDistance(), requestDto.getRunningTime());
             requestDto.setFace(face);
         }
 
