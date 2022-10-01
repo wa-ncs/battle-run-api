@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,15 +27,17 @@ public class Record extends CommonEntity {
 
     private Long runningTime;
 
-    private Float face;
+    private String face;
 
     private Integer calorie;
 
     private String imageUrl;
 
+    private String todayMemo;
+
     @Builder
     public Record(Long id, Long userId, Float distance, Long runningTime,
-                  Float face, Integer calorie, String imageUrl){
+                  String face, Integer calorie, String imageUrl, String todayMemo){
         this.id = id;
         this.userId = userId;
         this.distance = distance;
@@ -42,27 +45,32 @@ public class Record extends CommonEntity {
         this.face = face;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
+        this.todayMemo = todayMemo;
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
-        if(this.distance != requestDto.getDistance()){
+        if(requestDto.getDistance() > 0){
             this.distance = requestDto.getDistance();
         }
 
-        if(this.calorie != requestDto.getCalorie()){
+        if(requestDto.getCalorie() > 0){
             this.calorie = requestDto.getCalorie();
         }
 
-        if(this.runningTime != requestDto.getRunningTime()){
+        if(requestDto.getRunningTime() > 0){
             this.runningTime = requestDto.getRunningTime();
         }
 
-        if(this.face != requestDto.getFace()){
+        if(StringUtils.isNotBlank(requestDto.getFace())){
             this.face = requestDto.getFace();
         }
 
-        if(!this.imageUrl.equals(requestDto.getImageUrl())){
+        if(StringUtils.isNotBlank(requestDto.getImageUrl())){
             this.imageUrl = requestDto.getImageUrl();
+        }
+
+        if(StringUtils.isNotBlank(requestDto.getTodayMemo())){
+            this.todayMemo = requestDto.getTodayMemo();
         }
     }
 }
