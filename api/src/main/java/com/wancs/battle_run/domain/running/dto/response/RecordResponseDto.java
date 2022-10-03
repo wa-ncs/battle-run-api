@@ -12,19 +12,17 @@ public class RecordResponseDto {
     private String face;
     private Integer calorie;
     private String imageUrl;
-    private String todayMemo;
 
 
     @Builder
     public RecordResponseDto(Long id, Float distance, Long runningTime, String face,
-                              Integer calorie, String imageUrl, String todayMemo){
+                              Integer calorie, String imageUrl){
         this.id = id;
         this.distance = distance;
         this.runningTime = runningTime;
         this.face = face;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
-        this.todayMemo = todayMemo;
     }
 
 
@@ -36,7 +34,6 @@ public class RecordResponseDto {
                 .face(entity.getFace())
                 .calorie(entity.getCalorie())
                 .imageUrl(entity.getImageUrl())
-                .todayMemo(entity.getTodayMemo())
                 .build();
     }
 }

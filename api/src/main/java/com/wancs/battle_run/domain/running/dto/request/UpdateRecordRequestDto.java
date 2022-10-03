@@ -18,6 +18,4 @@ public class UpdateRecordRequestDto {
 
     private String imageUrl;
 
-    private String todayMemo;
-
 }

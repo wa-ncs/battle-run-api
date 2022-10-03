@@ -33,11 +33,9 @@ public class Record extends CommonEntity {
 
     private String imageUrl;
 
-    private String todayMemo;
-
     @Builder
     public Record(Long id, Long userId, Float distance, Long runningTime,
-                  String face, Integer calorie, String imageUrl, String todayMemo){
+                  String face, Integer calorie, String imageUrl){
         this.id = id;
         this.userId = userId;
         this.distance = distance;
@@ -45,7 +43,6 @@ public class Record extends CommonEntity {
         this.face = face;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
-        this.todayMemo = todayMemo;
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
@@ -69,8 +66,5 @@ public class Record extends CommonEntity {
             this.imageUrl = requestDto.getImageUrl();
         }
 
-        if(StringUtils.isNotBlank(requestDto.getTodayMemo())){
-            this.todayMemo = requestDto.getTodayMemo();
-        }
     }
 }
