@@ -1,45 +1,59 @@
 package com.wancs.battle_run.domain.member.api;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import com.wancs.battle_run.domain.member.application.MemberService;
+import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
+import com.wancs.battle_run.domain.member.entity.Member;
+import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
+import com.wancs.battle_run.global.common.ResponseDto;
+import com.wancs.battle_run.global.common.StatusEnum;
+import org.springframework.web.bind.annotation.RequestBody;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
+import java.net.URI;
 
-@RestController
+@RestControllerAdvice
+@RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberApi {
 
-    @Operation(summary = "전체 멤버 조회", description = "hello api example")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
-    })
-    @GetMapping("")
-    public Map<String, Object> findAll() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data","hello");
-        return response;
+    private final MemberService memberService;
+
+    @PostMapping("")
+    public ResponseEntity<ResponseDto<MemberResponseDto>> save(
+            @Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+
+        Long savedId = memberService.save(createMemberRequestDto);
+        Member findMember = memberService.findById(savedId);
+
+        MemberResponseDto memberResponseDto = MemberResponseDto.fromEntity(findMember);
+        return ResponseEntity
+                .created(URI.create("/members/"+savedId))
+                .body(ResponseDto.<MemberResponseDto>builder()
+                        .code(StatusEnum.CREATED)
+                        .message("success")
+                        .data(memberResponseDto)
+                        .build());
     }
-    @Operation(summary = "멤버 조회", description = "hello api example")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "OK !!"),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
-            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
-            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
-    })
-    @GetMapping("/{id}")
-    public Map<String, Object> find(
-            @Parameter(description = "id", required = true, example = "1")
-            @PathVariable("id") Long id
-    ) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("data","hello");
-        return response;
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDto<MemberResponseDto>> update(
+            @PathVariable("id") Long id,
+            @RequestBody @Valid UpdateMemberRequestDto requestDto) {
+
+        Long userId = memberService.update(id, requestDto);
+        Member findMember = memberService.findById(userId);
+
+        MemberResponseDto memberResponseDto = MemberResponseDto.fromEntity(findMember);
+
+        return ResponseEntity
+                .ok()
+                .body(ResponseDto.<MemberResponseDto>builder()
+                        .code(StatusEnum.OK)
+                        .message("success")
+                        .data(memberResponseDto)
+                        .build());
     }
 }
