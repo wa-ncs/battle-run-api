@@ -12,18 +12,14 @@ public class SaveRecordRequestDto {
     private Long userId;
 
     @NotNull
-    @NotBlank
     private Float distance;
 
     @NotNull
-    @NotBlank
     private Long runningTime;
 
     @NotNull
-    @NotBlank
     private Integer calorie;
 
-    @NotNull
     @NotBlank
     private String imageUrl;
 
