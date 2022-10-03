@@ -1,5 +1,6 @@
 package com.wancs.battle_run.domain.running.entity;
 
+import com.wancs.battle_run.domain.running.common.RecordCommonMethod;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.AccessLevel;
@@ -64,6 +65,11 @@ public class Record extends CommonEntity {
 
         if(StringUtils.isNotBlank(requestDto.getImageUrl())){
             this.imageUrl = requestDto.getImageUrl();
+        }
+
+        //거리와 시간이 새로 들어오면 face 재계산
+        if(requestDto.getDistance() > 0 && requestDto.getRunningTime() > 0){
+            this.face = RecordCommonMethod.getFace(this.getDistance(), this.getRunningTime());
         }
 
     }

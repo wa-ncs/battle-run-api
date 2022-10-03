@@ -1,16 +1,21 @@
 package com.wancs.battle_run.domain.running.common;
 
-import org.springframework.stereotype.Component;
+public final class RecordCommonMethod {
 
-@Component
-public class RecordCommonMethod {
+    public static double getSecondFace(Float distance, Long runningTime){
+        if(distance <= 0 || runningTime <= 0){
+            return 0;
+        }
 
-    public String getMinuteFace(Float distance, Long runningTime){
+        return runningTime / distance / 1000;
+    }
+
+    public static String getFace(Float distance, Long runningTime){
         if(distance <= 0 || runningTime <= 0){
             return null;
         }
 
-        double secondFace = runningTime / distance / 1000;
+        double secondFace = getSecondFace(distance, runningTime);
 
         int minute = (int) secondFace / 60;
         int second = (int) secondFace % 60;

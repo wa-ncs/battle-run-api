@@ -1,5 +1,7 @@
 package com.wancs.battle_run.domain.running.api;
 
+import com.wancs.battle_run.domain.running.dto.RecordList;
+import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Record;
@@ -99,7 +101,13 @@ public class RecordApi {
     })
     @GetMapping(value = "")
     public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordsByUserId(@RequestParam Long userId) {
-        TotalRecordResponseDto responseDto = recordService.findRecordsByUserId(userId);
+        RecordList records = recordService.findRecordsByUserId(userId);
+        TotalRecordInterface totalRecord = recordService.findTotalRecord(userId);
+
+        TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
+                .totalRecord(totalRecord)
+                .records(records.toRecordResponseDto())
+                .build();
 
         ResponseDto<TotalRecordResponseDto> dto = ResponseDto.<TotalRecordResponseDto>builder()
                 .code(StatusEnum.OK)
