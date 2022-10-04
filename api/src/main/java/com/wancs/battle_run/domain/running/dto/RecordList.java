@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class RecordList {
@@ -16,11 +17,9 @@ public class RecordList {
     }
 
     public List<RecordResponseDto> toRecordResponseDto(){
-        List<RecordResponseDto> responseDto = new ArrayList<>();
-
-        for(Record record : this.records){
-            responseDto.add(RecordResponseDto.fromEntity(record));
-        }
+        List<RecordResponseDto> responseDto = this.records.stream()
+                .map(record -> RecordResponseDto.fromEntity(record))
+                .collect(Collectors.toList());
 
         return responseDto;
     }
