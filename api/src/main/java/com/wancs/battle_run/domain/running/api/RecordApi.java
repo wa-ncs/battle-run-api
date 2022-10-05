@@ -1,7 +1,10 @@
 package com.wancs.battle_run.domain.running.api;
 
+import com.wancs.battle_run.domain.running.dao.CommentRepository;
+import com.wancs.battle_run.domain.running.dto.request.MergeCommentRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
+import com.wancs.battle_run.domain.running.entity.Comment;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
@@ -26,6 +29,9 @@ import java.util.List;
 public class RecordApi {
     @Autowired
     private RecordService recordService;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Operation(summary = "러닝 기록 저장")
     @ApiResponses({
@@ -152,6 +158,30 @@ public class RecordApi {
 
         ResponseDto<Record> dto = ResponseDto.<Record>builder()
                 .data(record)
+                .code(StatusEnum.OK)
+                .build();
+
+        return ResponseEntity
+                .ok()
+                .body(dto);
+    }
+
+    @Operation(summary = "오늘도수고한나에게 추가 및 수정")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "409", description = "CONFLICT"),
+            @ApiResponse(responseCode = "422", description = "Required"),
+    })
+    @GetMapping(value = "/comment/{recordId}")
+    public ResponseEntity<ResponseDto<Comment>> mergeComment(MergeCommentRequestDto requestDto) {
+        Comment comment = commentRepository.findCommentByRecordId(requestDto.getRecordId());
+
+        //TODO : comment가 null이면 insert 아니면 update or JPA에서 merge문 찾아서 사용
+
+        ResponseDto<Comment> dto = ResponseDto.<Comment>builder()
+                .data(comment)
                 .code(StatusEnum.OK)
                 .build();
 
