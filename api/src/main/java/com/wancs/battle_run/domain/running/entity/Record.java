@@ -47,15 +47,15 @@ public class Record extends CommonEntity {
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
-        if(requestDto.getDistance() > 0){
+        if(requestDto.getDistance() != null && requestDto.getDistance() > 0){
             this.distance = requestDto.getDistance();
         }
 
-        if(requestDto.getCalorie() > 0){
+        if(requestDto.getCalorie() != null && requestDto.getCalorie() > 0){
             this.calorie = requestDto.getCalorie();
         }
 
-        if(requestDto.getRunningTime() > 0){
+        if(requestDto.getRunningTime() != null && requestDto.getRunningTime() > 0){
             this.runningTime = requestDto.getRunningTime();
         }
 
@@ -68,9 +68,10 @@ public class Record extends CommonEntity {
         }
 
         //거리와 시간이 새로 들어오면 face 재계산
-        if(requestDto.getDistance() > 0 && requestDto.getRunningTime() > 0){
-            this.face = RecordCommonMethod.getFace(this.getDistance(), this.getRunningTime());
+        if(requestDto.getDistance() != null && requestDto.getRunningTime() != null) {
+            if (requestDto.getDistance() > 0 && requestDto.getRunningTime() > 0) {
+                this.face = RecordCommonMethod.getFace(this.getDistance(), this.getRunningTime());
+            }
         }
-
     }
 }
