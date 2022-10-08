@@ -1,11 +1,12 @@
 package com.wancs.battle_run.domain.running.api;
 
-import com.wancs.battle_run.domain.running.dao.CommentRepository;
-import com.wancs.battle_run.domain.running.dto.request.MergeCommentRequestDto;
+import com.wancs.battle_run.domain.running.dto.request.SaveCommentRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
+import com.wancs.battle_run.domain.running.dto.response.CommentResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Comment;
 import com.wancs.battle_run.domain.running.entity.Record;
+import com.wancs.battle_run.domain.running.service.CommentService;
 import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
@@ -31,7 +32,7 @@ public class RecordApi {
     private RecordService recordService;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
     @Operation(summary = "러닝 기록 저장")
     @ApiResponses({
@@ -44,15 +45,13 @@ public class RecordApi {
     @PostMapping(value = "")
     public ResponseEntity<ResponseDto<Record>> save(@Valid SaveRecordRequestDto saveRecordRequestDto) {
         Long recordId = recordService.save(saveRecordRequestDto);
-        Record record = recordService.findByRecord(recordId);
 
         ResponseDto<Record> dto = ResponseDto.<Record>builder()
-                .data(record)
                 .code(StatusEnum.CREATED)
                 .build();
 
         return ResponseEntity
-                .created(URI.create("/records/"+recordId))
+                .created(URI.create("/api/records/"+recordId))
                 .body(dto);
     }
 
@@ -65,12 +64,16 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @PutMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<Record>> update(@PathVariable(required = true) Long recordId, @Valid UpdateRecordRequestDto updateRecordRequestDto) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable(required = true) Long recordId, @Valid UpdateRecordRequestDto updateRecordRequestDto) {
         Long id = recordService.update(recordId, updateRecordRequestDto);
         Record record = recordService.findByRecord(id);
 
-        ResponseDto<Record> dto = ResponseDto.<Record>builder()
-                .data(record)
+        RecordResponseDto data = RecordResponseDto.builder()
+                .entity(record)
+                .build();
+
+        ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
+                .data(data)
                 .code(StatusEnum.OK)
                 .build();
 
@@ -153,11 +156,22 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @GetMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<Record>> findById(@PathVariable(required = true) Long recordId) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable(required = true) Long recordId) {
         Record record = recordService.findByRecord(recordId);
+        Comment comment = commentService.findCommentByRecordId(recordId);
 
-        ResponseDto<Record> dto = ResponseDto.<Record>builder()
-                .data(record)
+        CommentResponseDto commentDto = CommentResponseDto.builder()
+                .commentId(comment.getId())
+                .comment(comment.getComment())
+                .build();
+
+        RecordResponseDto data = RecordResponseDto.builder()
+                .entity(record)
+                .commentResponseDto(commentDto)
+                .build();
+
+        ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
+                .data(data)
                 .code(StatusEnum.OK)
                 .build();
 
@@ -174,14 +188,18 @@ public class RecordApi {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "422", description = "Required"),
     })
-    @GetMapping(value = "/comment/{recordId}")
-    public ResponseEntity<ResponseDto<Comment>> mergeComment(MergeCommentRequestDto requestDto) {
-        Comment comment = commentRepository.findCommentByRecordId(requestDto.getRecordId());
+    @PostMapping(value = "/{recordId}/comment")
+    public ResponseEntity<ResponseDto<CommentResponseDto>> saveComment(SaveCommentRequestDto requestDto) {
+        Long commentId = commentService.save(requestDto);
+        Comment comment = commentService.findbyId(commentId);
 
-        //TODO : comment가 null이면 insert 아니면 update or JPA에서 merge문 찾아서 사용
+        CommentResponseDto data = CommentResponseDto.builder()
+                .commentId(comment.getId())
+                .comment(comment.getComment())
+                .build();
 
-        ResponseDto<Comment> dto = ResponseDto.<Comment>builder()
-                .data(comment)
+        ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
+                .data(data)
                 .code(StatusEnum.OK)
                 .build();
 

@@ -1,6 +1,8 @@
 package com.wancs.battle_run.domain.running.entity;
 
+import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,7 @@ import javax.persistence.Id;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment {
+public class Comment extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +25,12 @@ public class Comment {
     private Long userId;
 
     private String comment;
+
+    @Builder
+    public Comment(Long id, Long recordId, Long userId, String comment){
+        this.id = id;
+        this.recordId = recordId;
+        this.userId = userId;
+        this.comment = comment;
+    }
 }

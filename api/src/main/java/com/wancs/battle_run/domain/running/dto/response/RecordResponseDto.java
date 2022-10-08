@@ -12,15 +12,17 @@ public class RecordResponseDto {
     private Float face;
     private Integer calorie;
     private String imageUrl;
+    private CommentResponseDto commentResponseDto;
 
 
     @Builder
-    public RecordResponseDto(Record entity){
+    public RecordResponseDto(Record entity, CommentResponseDto commentResponseDto){
         this.id = entity.getId();
         this.distance = entity.getDistance();
         this.runningTime = entity.getRunningTime();
         this.face = entity.getFace();
         this.calorie = entity.getCalorie();
         this.imageUrl = entity.getImageUrl();
+        this.commentResponseDto = commentResponseDto;
     }
 }
