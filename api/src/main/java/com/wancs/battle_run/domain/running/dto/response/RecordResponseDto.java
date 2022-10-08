@@ -9,7 +9,7 @@ public class RecordResponseDto {
     private Long id;
     private Float distance;
     private Long runningTime;
-    private Float face;
+    private String face;
     private Integer calorie;
     private String imageUrl;
     private CommentResponseDto commentResponseDto;
@@ -24,5 +24,17 @@ public class RecordResponseDto {
         this.calorie = entity.getCalorie();
         this.imageUrl = entity.getImageUrl();
         this.commentResponseDto = commentResponseDto;
+    }
+
+
+    public static RecordResponseDto fromEntity(Record entity){
+        return RecordResponseDto.builder()
+                .id(entity.getId())
+                .distance(entity.getDistance())
+                .runningTime(entity.getRunningTime())
+                .face(entity.getFace())
+                .calorie(entity.getCalorie())
+                .imageUrl(entity.getImageUrl())
+                .build();
     }
 }
