@@ -29,12 +29,7 @@ public class RecordResponseDto {
 
     public static RecordResponseDto fromEntity(Record entity){
         return RecordResponseDto.builder()
-                .id(entity.getId())
-                .distance(entity.getDistance())
-                .runningTime(entity.getRunningTime())
-                .face(entity.getFace())
-                .calorie(entity.getCalorie())
-                .imageUrl(entity.getImageUrl())
+                .entity(entity)
                 .build();
     }
 }
