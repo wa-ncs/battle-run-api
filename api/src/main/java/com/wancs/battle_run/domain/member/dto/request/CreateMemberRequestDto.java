@@ -9,13 +9,12 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateMemberRequestDto {
-    @NotNull
     @NotBlank
     private String name;
-    @NotNull
+
     @NotBlank
     private String nickName;
-    @NotNull
+
     @NotBlank
     @Email
     private String email;

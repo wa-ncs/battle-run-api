@@ -9,18 +9,31 @@ public class RecordResponseDto {
     private Long id;
     private Float distance;
     private Long runningTime;
-    private Float face;
+    private String face;
     private Integer calorie;
     private String imageUrl;
 
 
     @Builder
-    public RecordResponseDto(Record entity){
-        this.id = entity.getId();
-        this.distance = entity.getDistance();
-        this.runningTime = entity.getRunningTime();
-        this.face = entity.getFace();
-        this.calorie = entity.getCalorie();
-        this.imageUrl = entity.getImageUrl();
+    public RecordResponseDto(Long id, Float distance, Long runningTime, String face,
+                              Integer calorie, String imageUrl){
+        this.id = id;
+        this.distance = distance;
+        this.runningTime = runningTime;
+        this.face = face;
+        this.calorie = calorie;
+        this.imageUrl = imageUrl;
+    }
+
+
+    public static RecordResponseDto fromEntity(Record entity){
+        return RecordResponseDto.builder()
+                .id(entity.getId())
+                .distance(entity.getDistance())
+                .runningTime(entity.getRunningTime())
+                .face(entity.getFace())
+                .calorie(entity.getCalorie())
+                .imageUrl(entity.getImageUrl())
+                .build();
     }
 }

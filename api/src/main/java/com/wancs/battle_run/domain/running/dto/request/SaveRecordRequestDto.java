@@ -10,30 +10,29 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class SaveRecordRequestDto {
     private Long userId;
+
     @NotNull
-    @NotBlank
     private Float distance;
+
     @NotNull
-    @NotBlank
     private Long runningTime;
+
     @NotNull
-    @NotBlank
-    private Float face;
-    @NotNull
-    @NotBlank
     private Integer calorie;
-    @NotNull
+
     @NotBlank
     private String imageUrl;
 
+    private String face;
+
     @Builder
-    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Float face, Integer calorie, String imageUrl){
+    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, String face, Integer calorie, String imageUrl){
         this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;
-        this.face = face;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
+        this.face = face;
     }
 
     public Record toEntity(){
@@ -41,9 +40,9 @@ public class SaveRecordRequestDto {
                 .userId(this.userId)
                 .distance(this.distance)
                 .runningTime(this.runningTime)
-                .face(this.face)
                 .calorie(this.calorie)
                 .imageUrl(this.imageUrl)
+                .face(this.face)
                 .build();
     }
 }

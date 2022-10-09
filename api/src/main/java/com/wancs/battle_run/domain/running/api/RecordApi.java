@@ -1,5 +1,7 @@
 package com.wancs.battle_run.domain.running.api;
 
+import com.wancs.battle_run.domain.running.dto.RecordList;
+import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Record;
@@ -18,8 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @RestControllerAdvice
 @RequestMapping("/api/records")
@@ -100,32 +101,12 @@ public class RecordApi {
     })
     @GetMapping(value = "")
     public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordsByUserId(@RequestParam Long userId) {
-        Float totalDistance = 0F;
-        Long totalRunningTime = 0L;
-        Integer totalCalorie = 0;
-        List<RecordResponseDto> recordList = new ArrayList<>();
-
-        List<Record> records = recordService.findRecordsByUserId(userId);
-
-        for(Record record : records){
-            RecordResponseDto recordResponse = RecordResponseDto.builder()
-                    .entity(record)
-                    .build();
-            recordList.add(recordResponse);
-
-            totalDistance += record.getDistance();
-            totalRunningTime += record.getRunningTime();
-            totalCalorie += record.getCalorie();
-        }
-
-        //온전한 형태의 시간이 아닌 ms 형태의 시간이라 프론트에서 totalFace 계산해주기
-        //Float totalFace = (totalDistance / totalRunningTime * 100) / 100;
+        RecordList records = recordService.findRecordsByUserId(userId);
+        TotalRecordInterface totalRecord = recordService.findTotalRecord(userId);
 
         TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
-                .totalDistance(totalDistance)
-                .totalRunningTime(totalRunningTime)
-                .totalCalorie(totalCalorie)
-                .recordList(recordList)
+                .totalRecord(totalRecord)
+                .records(records.toRecordResponseDto())
                 .build();
 
         ResponseDto<TotalRecordResponseDto> dto = ResponseDto.<TotalRecordResponseDto>builder()

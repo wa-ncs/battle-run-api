@@ -1,11 +1,13 @@
 package com.wancs.battle_run.domain.running.entity;
 
+import com.wancs.battle_run.domain.running.common.RecordCommonMethod;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +28,7 @@ public class Record extends CommonEntity {
 
     private Long runningTime;
 
-    private Float face;
+    private String face;
 
     private Integer calorie;
 
@@ -34,7 +36,7 @@ public class Record extends CommonEntity {
 
     @Builder
     public Record(Long id, Long userId, Float distance, Long runningTime,
-                  Float face, Integer calorie, String imageUrl){
+                  String face, Integer calorie, String imageUrl){
         this.id = id;
         this.userId = userId;
         this.distance = distance;
@@ -45,24 +47,31 @@ public class Record extends CommonEntity {
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
-        if(this.distance != requestDto.getDistance()){
+        if(requestDto.getDistance() != null && requestDto.getDistance() > 0){
             this.distance = requestDto.getDistance();
         }
 
-        if(this.calorie != requestDto.getCalorie()){
+        if(requestDto.getCalorie() != null && requestDto.getCalorie() > 0){
             this.calorie = requestDto.getCalorie();
         }
 
-        if(this.runningTime != requestDto.getRunningTime()){
+        if(requestDto.getRunningTime() != null && requestDto.getRunningTime() > 0){
             this.runningTime = requestDto.getRunningTime();
         }
 
-        if(this.face != requestDto.getFace()){
+        if(StringUtils.isNotBlank(requestDto.getFace())){
             this.face = requestDto.getFace();
         }
 
-        if(!this.imageUrl.equals(requestDto.getImageUrl())){
+        if(StringUtils.isNotBlank(requestDto.getImageUrl())){
             this.imageUrl = requestDto.getImageUrl();
+        }
+
+        //거리와 시간이 새로 들어오면 face 재계산
+        if(requestDto.getDistance() != null && requestDto.getRunningTime() != null) {
+            if (requestDto.getDistance() > 0 && requestDto.getRunningTime() > 0) {
+                this.face = RecordCommonMethod.getFace(this.getDistance(), this.getRunningTime());
+            }
         }
     }
 }
