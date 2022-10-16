@@ -7,9 +7,12 @@ import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dao.RecordRepository;
+import com.wancs.battle_run.global.common.ResponseDto;
+import com.wancs.battle_run.global.common.StatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +28,9 @@ public class RecordService {
         return recordRepository.findTotalRecordByUserId(userId);
     }
 
-    public Record findByRecord(Long recordId){
+    public Optional<Record> findById(Long recordId){
         return recordRepository
-                .findById(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("no data"));
+                .findById(recordId);
     }
 
     @Transactional
@@ -50,8 +52,23 @@ public class RecordService {
 
     @Transactional
     public Long update(Long id, UpdateRecordRequestDto requestDto){
-        Record record = this.findByRecord(id);
+        Optional<Record> optionalRecord = this.findById(id);
+        Record record = optionalRecord.get();
         record.changeRecord(requestDto);
+
         return record.getId();
+    }
+
+    public Boolean isExistRecord(Long recordId){
+        Optional<Record> optionalRecord = this.findById(recordId);
+        return optionalRecord.isPresent();
+    }
+
+    public ResponseDto badRequestErrorDto(String msg){
+        ResponseDto dto = ResponseDto.builder()
+                .message(msg)
+                .code(StatusEnum.BAD_REQUEST)
+                .build();
+        return dto;
     }
 }

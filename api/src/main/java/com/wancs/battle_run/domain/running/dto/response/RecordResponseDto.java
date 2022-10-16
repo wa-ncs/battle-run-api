@@ -1,5 +1,6 @@
 package com.wancs.battle_run.domain.running.dto.response;
 
+import com.wancs.battle_run.domain.running.entity.Comment;
 import com.wancs.battle_run.domain.running.entity.Record;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,18 +13,20 @@ public class RecordResponseDto {
     private String face;
     private Integer calorie;
     private String imageUrl;
-    private CommentResponseDto commentResponseDto;
 
+    private Long commentId;
+    private String comment;
 
     @Builder
-    public RecordResponseDto(Record entity, CommentResponseDto commentResponseDto){
-        this.id = entity.getId();
-        this.distance = entity.getDistance();
-        this.runningTime = entity.getRunningTime();
-        this.face = entity.getFace();
-        this.calorie = entity.getCalorie();
-        this.imageUrl = entity.getImageUrl();
-        this.commentResponseDto = commentResponseDto;
+    public RecordResponseDto(Record entity, Comment comment){
+        this.id = entity != null? entity.getId() : 0;
+        this.distance = entity != null? entity.getDistance() : 0;
+        this.runningTime = entity != null? entity.getRunningTime() : 0;
+        this.face = entity != null? entity.getFace() : "";
+        this.calorie = entity != null? entity.getCalorie() : 0;
+        this.imageUrl = entity != null? entity.getImageUrl() : "";
+        this.commentId = comment != null? comment.getId() : 0;
+        this.comment = comment != null? comment.getComment() : "";
     }
 
 

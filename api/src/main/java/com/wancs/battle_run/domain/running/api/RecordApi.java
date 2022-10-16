@@ -3,6 +3,7 @@ package com.wancs.battle_run.domain.running.api;
 import com.wancs.battle_run.domain.running.dto.RecordList;
 import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import com.wancs.battle_run.domain.running.dto.request.SaveCommentRequestDto;
+import com.wancs.battle_run.domain.running.dto.request.UpdateCommentRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.CommentResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 
 @RestControllerAdvice
@@ -44,10 +46,17 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @PostMapping(value = "")
-    public ResponseEntity<ResponseDto<Record>> save(@Valid SaveRecordRequestDto saveRecordRequestDto) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> save(@RequestBody @Valid SaveRecordRequestDto saveRecordRequestDto) {
         Long recordId = recordService.save(saveRecordRequestDto);
+        Optional<Record> record = recordService.findById(recordId);
 
-        ResponseDto<Record> dto = ResponseDto.<Record>builder()
+        RecordResponseDto data = RecordResponseDto.builder()
+                .entity(record.get())
+                .build();
+
+        ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
+                .data(data)
+                .message("success")
                 .code(StatusEnum.CREATED)
                 .build();
 
@@ -65,16 +74,25 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @PutMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable(required = true) Long recordId, @Valid UpdateRecordRequestDto updateRecordRequestDto) {
+    public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable Long recordId,
+                                                                 @RequestBody @Valid UpdateRecordRequestDto updateRecordRequestDto) {
+        Boolean isExistRecord = recordService.isExistRecord(recordId);
+        if(!isExistRecord){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
+        }
+
         Long id = recordService.update(recordId, updateRecordRequestDto);
-        Record record = recordService.findByRecord(id);
+        Optional<Record> record = recordService.findById(id);
 
         RecordResponseDto data = RecordResponseDto.builder()
-                .entity(record)
+                .entity(record.get())
                 .build();
 
         ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
                 .data(data)
+                .message("success")
                 .code(StatusEnum.OK)
                 .build();
 
@@ -92,7 +110,14 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @DeleteMapping(value = "/{recordId}")
-    public ResponseEntity<RecordResponseDto> deleteById(@PathVariable(required = true) Long recordId) {
+    public ResponseEntity<ResponseDto> deleteById(@PathVariable Long recordId) {
+        Boolean isExistRecord = recordService.isExistRecord(recordId);
+        if(!isExistRecord){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
+        }
+
         recordService.deleteById(recordId);
 
         return ResponseEntity
@@ -137,22 +162,25 @@ public class RecordApi {
             @ApiResponse(responseCode = "422", description = "Required"),
     })
     @GetMapping(value = "/{recordId}")
-    public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable(required = true) Long recordId) {
-        Record record = recordService.findByRecord(recordId);
+    public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable Long recordId) {
+        Boolean isExistRecord = recordService.isExistRecord(recordId);
+        if(!isExistRecord){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
+        }
+
+        Optional<Record> record = recordService.findById(recordId);
         Comment comment = commentService.findCommentByRecordId(recordId);
 
-        CommentResponseDto commentDto = CommentResponseDto.builder()
-                .commentId(comment.getId())
-                .comment(comment.getComment())
-                .build();
-
         RecordResponseDto data = RecordResponseDto.builder()
-                .entity(record)
-                .commentResponseDto(commentDto)
+                .entity(record.get())
+                .comment(comment)
                 .build();
 
         ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
                 .data(data)
+                .message("success")
                 .code(StatusEnum.OK)
                 .build();
 
@@ -161,7 +189,43 @@ public class RecordApi {
                 .body(dto);
     }
 
-    @Operation(summary = "오늘도수고한나에게 추가 및 수정")
+    @Operation(summary = "오늘도수고한나에게한마디 저장")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+            @ApiResponse(responseCode = "409", description = "CONFLICT"),
+            @ApiResponse(responseCode = "422", description = "Required"),
+    })
+    @PostMapping(value = "/{recordId}/comment")
+    public ResponseEntity<ResponseDto<CommentResponseDto>> saveComment(@PathVariable Long recordId,
+                                                                       @RequestBody SaveCommentRequestDto requestDto) {
+        Boolean isExistRecord = recordService.isExistRecord(recordId);
+        if(!isExistRecord){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
+        }
+
+        Long commentId = commentService.save(requestDto, recordId);
+        Optional<Comment> comment = commentService.findById(commentId);
+
+        CommentResponseDto data = CommentResponseDto.builder()
+                .comment(comment.get())
+                .build();
+
+        ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
+                .data(data)
+                .message("success")
+                .code(StatusEnum.OK)
+                .build();
+
+        return ResponseEntity
+                .created(URI.create("/api/records/"+recordId))
+                .body(dto);
+    }
+
+    @Operation(summary = "오늘도수고한나에게한마디 수정")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
@@ -169,18 +233,33 @@ public class RecordApi {
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
             @ApiResponse(responseCode = "422", description = "Required"),
     })
-    @PostMapping(value = "/{recordId}/comment")
-    public ResponseEntity<ResponseDto<CommentResponseDto>> saveComment(SaveCommentRequestDto requestDto) {
-        Long commentId = commentService.save(requestDto);
-        Comment comment = commentService.findbyId(commentId);
+    @PutMapping(value = "/{recordId}/comment")
+    public ResponseEntity<ResponseDto<CommentResponseDto>> updateComment(@PathVariable Long recordId,
+                                                                         @RequestBody @Valid UpdateCommentRequestDto requestDto) {
+        Boolean isExistRecord = recordService.isExistRecord(recordId);
+        if(!isExistRecord){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
+        }
+
+        Boolean isExistComment = commentService.isExistComment(requestDto.getCommentId());
+        if(!isExistComment){
+            return ResponseEntity
+                    .badRequest()
+                    .body(recordService.badRequestErrorDto("존재 하지않는 comment 입니다."));
+        }
+
+        Long commentId = commentService.update(requestDto);
+        Optional<Comment> comment = commentService.findById(commentId);
 
         CommentResponseDto data = CommentResponseDto.builder()
-                .commentId(comment.getId())
-                .comment(comment.getComment())
+                .comment(comment.get())
                 .build();
 
         ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
                 .data(data)
+                .message("success")
                 .code(StatusEnum.OK)
                 .build();
 

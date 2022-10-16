@@ -1,10 +1,12 @@
 package com.wancs.battle_run.domain.running.entity;
 
+import com.wancs.battle_run.domain.running.dto.request.UpdateCommentRequestDto;
 import com.wancs.battle_run.global.common.CommonEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,5 +34,11 @@ public class Comment extends CommonEntity {
         this.recordId = recordId;
         this.userId = userId;
         this.comment = comment;
+    }
+
+    public void chageComment(UpdateCommentRequestDto requestDto){
+        if(StringUtils.isNotBlank(requestDto.getComment())){
+            this.comment = requestDto.getComment();
+        }
     }
 }
