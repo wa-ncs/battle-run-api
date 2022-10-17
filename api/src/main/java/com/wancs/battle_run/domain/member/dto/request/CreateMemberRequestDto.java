@@ -19,11 +19,19 @@ public class CreateMemberRequestDto {
     @Email
     private String email;
 
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String type;
+
     public Member toEntity() {
         return Member.builder()
                 .name(this.name)
                 .nickName(this.nickName)
                 .email(this.email)
+                .password(this.password)
+                .type(this.type)
                 .build();
     }
 }

@@ -1,8 +1,8 @@
 package com.wancs.battle_run.domain.member.dao;
 
+import com.wancs.battle_run.domain.auth.dto.LoginDto;
 import com.wancs.battle_run.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -22,6 +22,21 @@ public class MemberRepository {
 
     public Member findById(Long id) {
         return em.find(Member.class, id);
+    }
+
+    public Member findByEmailAndType(LoginDto loginDto) {
+        return em.createQuery(
+                "select m " +
+                        "from Member m " +
+                        "where m.email = :email " +
+                        "and m.type = :type"
+                        , Member.class
+                )
+                .setParameter("email", loginDto.getEmail())
+                .setParameter("type", loginDto.getType())
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Member> findAll() {
