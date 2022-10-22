@@ -26,19 +26,19 @@ public class Comment extends CommonEntity {
 
     private Long userId;
 
-    private String comment;
+    private String content;
 
     @Builder
-    public Comment(Long id, Long recordId, Long userId, String comment){
+    public Comment(Long id, Long recordId, Long userId, String content){
         this.id = id;
         this.recordId = recordId;
         this.userId = userId;
-        this.comment = comment;
+        this.content = content;
     }
 
     public void chageComment(UpdateCommentRequestDto requestDto){
-        if(StringUtils.isNotBlank(requestDto.getComment())){
-            this.comment = requestDto.getComment();
+        if(StringUtils.isNotBlank(requestDto.getContent())){
+            this.content = requestDto.getContent();
         }
     }
 }

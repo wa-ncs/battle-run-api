@@ -28,20 +28,16 @@ public class RecordService {
         return recordRepository.findTotalRecordByUserId(userId);
     }
 
-    public Optional<Record> findById(Long recordId){
+    public Record findById(Long recordId){
         return recordRepository
-                .findById(recordId);
+                .findById(recordId)
+                .orElseThrow(() -> new IllegalArgumentException("존재 하지않는 운동 기록입니다."));
     }
 
     @Transactional
     public Long save(SaveRecordRequestDto requestDto){
-        String face = RecordCommonMethod.getFace(requestDto.getDistance(), requestDto.getRunningTime());
-        requestDto.setFace(face);
-
-        Record record = requestDto.toEntity();
-
         return recordRepository
-                .save(record)
+                .save(requestDto.toEntity())
                 .getId();
     }
 
@@ -52,23 +48,9 @@ public class RecordService {
 
     @Transactional
     public Long update(Long id, UpdateRecordRequestDto requestDto){
-        Optional<Record> optionalRecord = this.findById(id);
-        Record record = optionalRecord.get();
+        Record record = this.findById(id);
         record.changeRecord(requestDto);
 
         return record.getId();
-    }
-
-    public Boolean isExistRecord(Long recordId){
-        Optional<Record> optionalRecord = this.findById(recordId);
-        return optionalRecord.isPresent();
-    }
-
-    public ResponseDto badRequestErrorDto(String msg){
-        ResponseDto dto = ResponseDto.builder()
-                .message(msg)
-                .code(StatusEnum.BAD_REQUEST)
-                .build();
-        return dto;
     }
 }

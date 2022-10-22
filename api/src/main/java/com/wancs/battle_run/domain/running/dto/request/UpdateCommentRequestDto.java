@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UpdateCommentRequestDto {
     @NotNull
-    private Long commentId;
+    private Long id;
 
-    private String comment;
+    private String content;
 }

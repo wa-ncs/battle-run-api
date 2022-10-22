@@ -1,6 +1,5 @@
 package com.wancs.battle_run.domain.running.dto.response;
 
-import com.wancs.battle_run.domain.running.common.RecordCommonMethod;
 import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,23 +7,23 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static com.wancs.battle_run.global.common.InitializationByType.*;
+
 @Getter
 @NoArgsConstructor
 public class TotalRecordResponseDto {
     private Float totalDistance;
     private Long totalRunningTime;
     private Integer totalCalorie;
-    private String totalFace;
-    List<RecordResponseDto> records;
+    private Double totalPace;
+    List<RecordListResponseDto> records;
 
     @Builder
-    public TotalRecordResponseDto(TotalRecordInterface totalRecord, List<RecordResponseDto> records){
-        String totalFace = RecordCommonMethod.getFace(totalRecord.getTotalDistance(), totalRecord.getTotalRunningTime());
-
-        this.totalDistance = totalRecord.getTotalDistance();
-        this.totalRunningTime = totalRecord.getTotalRunningTime();
-        this.totalCalorie = totalRecord.getTotalCalorie();
-        this.totalFace = totalFace;
+    public TotalRecordResponseDto(TotalRecordInterface totalRecord, List<RecordListResponseDto> records){
+        this.totalDistance = floatCheck(totalRecord.getTotalDistance());
+        this.totalRunningTime = longCheck(totalRecord.getTotalRunningTime());
+        this.totalCalorie = integerCheck(totalRecord.getTotalCalorie());
+        this.totalPace = totalRecord.getTotalPace() / records.size();
         this.records = records;
     }
 }

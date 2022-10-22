@@ -17,22 +17,21 @@ public class SaveRecordRequestDto {
     @NotNull
     private Long runningTime;
 
-    @NotNull
-    private Integer calorie;
-
     @NotBlank
     private String imageUrl;
 
-    private String face;
+    private Integer calorie;
+
+    private Double pace;
 
     @Builder
-    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, String face, Integer calorie, String imageUrl){
+    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Double pace, Integer calorie, String imageUrl){
         this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
-        this.face = face;
+        this.pace = pace;
     }
 
     public Record toEntity(){
@@ -42,7 +41,7 @@ public class SaveRecordRequestDto {
                 .runningTime(this.runningTime)
                 .calorie(this.calorie)
                 .imageUrl(this.imageUrl)
-                .face(this.face)
+                .pace(this.pace)
                 .build();
     }
 }

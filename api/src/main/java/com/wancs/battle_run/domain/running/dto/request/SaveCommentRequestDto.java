@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 public class SaveCommentRequestDto {
     private Long userId;
 
-    private String comment;
+    private String content;
 
     public Comment toEntity(Long recordId){
         return Comment.builder()
                 .recordId(recordId)
                 .userId(this.userId)
-                .comment(this.comment)
+                .content(this.content)
                 .build();
     }
 }

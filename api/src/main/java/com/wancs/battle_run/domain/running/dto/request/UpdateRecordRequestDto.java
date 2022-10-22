@@ -15,7 +15,7 @@ public class UpdateRecordRequestDto {
 
     private Long runningTime;
 
-    private String face;
+    private Double pace;
 
     private Integer calorie;
 

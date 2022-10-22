@@ -70,7 +70,7 @@ public class RecordRepositoryTest {
         recordService.update(recordsId, requestDto);
 
         //when
-        Record records = recordService.findByRecord(recordsId);
+        Record records = recordService.findById(recordsId);
         assertThat("20".equals(records.getRunningTime()));
     }
 }

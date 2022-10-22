@@ -48,10 +48,10 @@ public class RecordApi {
     @PostMapping(value = "")
     public ResponseEntity<ResponseDto<RecordResponseDto>> save(@RequestBody @Valid SaveRecordRequestDto saveRecordRequestDto) {
         Long recordId = recordService.save(saveRecordRequestDto);
-        Optional<Record> record = recordService.findById(recordId);
+        Record record = recordService.findById(recordId);
 
         RecordResponseDto data = RecordResponseDto.builder()
-                .entity(record.get())
+                .entity(record)
                 .build();
 
         ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
@@ -76,18 +76,11 @@ public class RecordApi {
     @PutMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable Long recordId,
                                                                  @RequestBody @Valid UpdateRecordRequestDto updateRecordRequestDto) {
-        Boolean isExistRecord = recordService.isExistRecord(recordId);
-        if(!isExistRecord){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
-        }
-
         Long id = recordService.update(recordId, updateRecordRequestDto);
-        Optional<Record> record = recordService.findById(id);
+        Record record = recordService.findById(id);
 
         RecordResponseDto data = RecordResponseDto.builder()
-                .entity(record.get())
+                .entity(record)
                 .build();
 
         ResponseDto<RecordResponseDto> dto = ResponseDto.<RecordResponseDto>builder()
@@ -111,13 +104,6 @@ public class RecordApi {
     })
     @DeleteMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto> deleteById(@PathVariable Long recordId) {
-        Boolean isExistRecord = recordService.isExistRecord(recordId);
-        if(!isExistRecord){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
-        }
-
         recordService.deleteById(recordId);
 
         return ResponseEntity
@@ -140,7 +126,7 @@ public class RecordApi {
 
         TotalRecordResponseDto responseDto = TotalRecordResponseDto.builder()
                 .totalRecord(totalRecord)
-                .records(records.toRecordResponseDto())
+                .records(records.toRecordListResponseDto())
                 .build();
 
         ResponseDto<TotalRecordResponseDto> dto = ResponseDto.<TotalRecordResponseDto>builder()
@@ -163,18 +149,11 @@ public class RecordApi {
     })
     @GetMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable Long recordId) {
-        Boolean isExistRecord = recordService.isExistRecord(recordId);
-        if(!isExistRecord){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
-        }
-
-        Optional<Record> record = recordService.findById(recordId);
+        Record record = recordService.findById(recordId);
         Comment comment = commentService.findCommentByRecordId(recordId);
 
         RecordResponseDto data = RecordResponseDto.builder()
-                .entity(record.get())
+                .entity(record)
                 .comment(comment)
                 .build();
 
@@ -200,18 +179,11 @@ public class RecordApi {
     @PostMapping(value = "/{recordId}/comment")
     public ResponseEntity<ResponseDto<CommentResponseDto>> saveComment(@PathVariable Long recordId,
                                                                        @RequestBody SaveCommentRequestDto requestDto) {
-        Boolean isExistRecord = recordService.isExistRecord(recordId);
-        if(!isExistRecord){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
-        }
-
         Long commentId = commentService.save(requestDto, recordId);
-        Optional<Comment> comment = commentService.findById(commentId);
+        Comment comment = commentService.findById(commentId);
 
         CommentResponseDto data = CommentResponseDto.builder()
-                .comment(comment.get())
+                .comment(comment)
                 .build();
 
         ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
@@ -236,25 +208,11 @@ public class RecordApi {
     @PutMapping(value = "/{recordId}/comment")
     public ResponseEntity<ResponseDto<CommentResponseDto>> updateComment(@PathVariable Long recordId,
                                                                          @RequestBody @Valid UpdateCommentRequestDto requestDto) {
-        Boolean isExistRecord = recordService.isExistRecord(recordId);
-        if(!isExistRecord){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 운동 기록입니다."));
-        }
-
-        Boolean isExistComment = commentService.isExistComment(requestDto.getCommentId());
-        if(!isExistComment){
-            return ResponseEntity
-                    .badRequest()
-                    .body(recordService.badRequestErrorDto("존재 하지않는 comment 입니다."));
-        }
-
         Long commentId = commentService.update(requestDto);
-        Optional<Comment> comment = commentService.findById(commentId);
+        Comment comment = commentService.findById(commentId);
 
         CommentResponseDto data = CommentResponseDto.builder()
-                .comment(comment.get())
+                .comment(comment)
                 .build();
 
         ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
