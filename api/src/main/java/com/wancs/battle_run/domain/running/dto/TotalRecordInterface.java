@@ -4,5 +4,5 @@ public interface TotalRecordInterface {
     Float getTotalDistance();
     Long getTotalRunningTime();
     Integer getTotalCalorie();
-    Double getTotalPace();
+    Integer getTotalPace();
 }

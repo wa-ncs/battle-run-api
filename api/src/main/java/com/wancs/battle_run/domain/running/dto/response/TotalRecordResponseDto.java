@@ -15,7 +15,7 @@ public class TotalRecordResponseDto {
     private Float totalDistance;
     private Long totalRunningTime;
     private Integer totalCalorie;
-    private Double totalPace;
+    private Integer totalPace;
     List<RecordListResponseDto> records;
 
     @Builder
