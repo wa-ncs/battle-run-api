@@ -22,10 +22,10 @@ public class SaveRecordRequestDto {
 
     private Integer calorie;
 
-    private Double pace;
+    private Integer pace;
 
     @Builder
-    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Double pace, Integer calorie, String imageUrl){
+    public SaveRecordRequestDto(Long userId, Float distance, Long runningTime, Integer pace, Integer calorie, String imageUrl){
         this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;

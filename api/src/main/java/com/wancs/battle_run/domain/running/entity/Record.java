@@ -29,7 +29,7 @@ public class Record extends CommonEntity {
 
     private Long runningTime;
 
-    private Double pace;
+    private Integer pace;
 
     private Integer calorie;
 
@@ -37,7 +37,7 @@ public class Record extends CommonEntity {
 
     @Builder
     public Record(Long id, Long userId, Float distance, Long runningTime,
-                  Double pace, Integer calorie, String imageUrl){
+                  Integer pace, Integer calorie, String imageUrl){
         this.id = id;
         this.userId = userId;
         this.distance = distance;
@@ -60,7 +60,7 @@ public class Record extends CommonEntity {
             this.runningTime = requestDto.getRunningTime();
         }
 
-        if(doubleCheck(requestDto.getPace()) > 0){
+        if(integerCheck(requestDto.getPace()) > 0){
             this.pace = requestDto.getPace();
         }
 

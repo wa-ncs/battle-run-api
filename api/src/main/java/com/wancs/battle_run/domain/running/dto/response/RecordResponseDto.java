@@ -14,7 +14,7 @@ public class RecordResponseDto {
     private Long id;
     private Float distance;
     private Long runningTime;
-    private Double pace;
+    private Integer pace;
     private Integer calorie;
     private String imageUrl;
     private LocalDateTime createdDate;
@@ -25,7 +25,7 @@ public class RecordResponseDto {
         this.id = longCheck(entity.getId());
         this.distance = floatCheck(entity.getDistance());
         this.runningTime = longCheck(entity.getRunningTime());
-        this.pace = doubleCheck(entity.getPace());
+        this.pace = integerCheck(entity.getPace());
         this.calorie = integerCheck(entity.getCalorie());
         this.imageUrl = stringCheck(entity.getImageUrl());
         this.createdDate = entity.getCreatedDate();
