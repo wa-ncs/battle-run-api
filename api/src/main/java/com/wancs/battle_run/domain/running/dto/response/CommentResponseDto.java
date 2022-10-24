@@ -22,8 +22,8 @@ public class CommentResponseDto {
             return;
         }
 
-        this.id = longCheck(comment.getId());
-        this.content = stringCheck(comment.getContent());
+        this.id = checkLong(comment.getId());
+        this.content = checkString(comment.getContent());
     }
 
     //객체 자체가 null 일 때 일괄 셋팅

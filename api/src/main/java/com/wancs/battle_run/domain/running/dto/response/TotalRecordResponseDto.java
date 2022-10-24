@@ -20,9 +20,9 @@ public class TotalRecordResponseDto {
 
     @Builder
     public TotalRecordResponseDto(TotalRecordInterface totalRecord, List<RecordListResponseDto> records){
-        this.totalDistance = floatCheck(totalRecord.getTotalDistance());
-        this.totalRunningTime = longCheck(totalRecord.getTotalRunningTime());
-        this.totalCalorie = integerCheck(totalRecord.getTotalCalorie());
+        this.totalDistance = checkFloat(totalRecord.getTotalDistance());
+        this.totalRunningTime = checkLong(totalRecord.getTotalRunningTime());
+        this.totalCalorie = checkInteger(totalRecord.getTotalCalorie());
         this.totalPace = totalRecord.getTotalPace() / records.size();
         this.records = records;
     }

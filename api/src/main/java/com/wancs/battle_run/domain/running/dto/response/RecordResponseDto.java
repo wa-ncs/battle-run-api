@@ -22,12 +22,12 @@ public class RecordResponseDto {
 
     @Builder
     public RecordResponseDto(Record entity, Comment comment){
-        this.id = longCheck(entity.getId());
-        this.distance = floatCheck(entity.getDistance());
-        this.runningTime = longCheck(entity.getRunningTime());
-        this.pace = integerCheck(entity.getPace());
-        this.calorie = integerCheck(entity.getCalorie());
-        this.imageUrl = stringCheck(entity.getImageUrl());
+        this.id = checkLong(entity.getId());
+        this.distance = checkFloat(entity.getDistance());
+        this.runningTime = checkLong(entity.getRunningTime());
+        this.pace = checkInteger(entity.getPace());
+        this.calorie = checkInteger(entity.getCalorie());
+        this.imageUrl = checkString(entity.getImageUrl());
         this.createdDate = entity.getCreatedDate();
 
         this.comment = CommentResponseDto.builder()

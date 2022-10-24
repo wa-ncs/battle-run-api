@@ -33,6 +33,7 @@ public class Record extends CommonEntity {
 
     private Integer calorie;
 
+
     private String imageUrl;
 
     @Builder
@@ -48,19 +49,19 @@ public class Record extends CommonEntity {
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
-        if(floatCheck(requestDto.getDistance()) > 0){
+        if(checkFloat(requestDto.getDistance()) > 0){
             this.distance = requestDto.getDistance();
         }
 
-        if(integerCheck(requestDto.getCalorie()) > 0){
+        if(checkInteger(requestDto.getCalorie()) > 0){
             this.calorie = requestDto.getCalorie();
         }
 
-        if(longCheck(requestDto.getRunningTime()) > 0){
+        if(checkLong(requestDto.getRunningTime()) > 0){
             this.runningTime = requestDto.getRunningTime();
         }
 
-        if(integerCheck(requestDto.getPace()) > 0){
+        if(checkInteger(requestDto.getPace()) > 0){
             this.pace = requestDto.getPace();
         }
 

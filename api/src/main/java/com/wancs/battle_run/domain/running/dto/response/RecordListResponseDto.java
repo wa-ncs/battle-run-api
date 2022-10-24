@@ -16,9 +16,9 @@ public class RecordListResponseDto {
 
     @Builder
     public RecordListResponseDto(Record entity) {
-        this.id = longCheck(entity.getId());
-        this.distance = floatCheck(entity.getDistance());
-        this.runningTime = longCheck(entity.getRunningTime());
+        this.id = checkLong(entity.getId());
+        this.distance = checkFloat(entity.getDistance());
+        this.runningTime = checkLong(entity.getRunningTime());
         this.createdDate = entity.getCreatedDate();
     }
 

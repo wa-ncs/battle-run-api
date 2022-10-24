@@ -17,7 +17,7 @@ public class AuthApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @GetMapping(value = "")
     public String findAll() {

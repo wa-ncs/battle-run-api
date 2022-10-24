@@ -43,7 +43,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @PostMapping(value = "")
     public ResponseEntity<ResponseDto<RecordResponseDto>> save(@RequestBody @Valid SaveRecordRequestDto saveRecordRequestDto) {
@@ -71,7 +71,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @PutMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto<RecordResponseDto>> update(@PathVariable Long recordId,
@@ -100,7 +100,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @DeleteMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto> deleteById(@PathVariable Long recordId) {
@@ -117,7 +117,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @GetMapping(value = "")
     public ResponseEntity<ResponseDto<TotalRecordResponseDto>> findRecordsByUserId(@RequestParam Long userId) {
@@ -145,7 +145,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @GetMapping(value = "/{recordId}")
     public ResponseEntity<ResponseDto<RecordResponseDto>> findById(@PathVariable Long recordId) {
@@ -174,7 +174,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @PostMapping(value = "/{recordId}/comment")
     public ResponseEntity<ResponseDto<CommentResponseDto>> saveComment(@PathVariable Long recordId,
@@ -189,7 +189,7 @@ public class RecordApi {
         ResponseDto<CommentResponseDto> dto = ResponseDto.<CommentResponseDto>builder()
                 .data(data)
                 .message("success")
-                .code(StatusEnum.OK)
+                .code(StatusEnum.CREATED)
                 .build();
 
         return ResponseEntity
@@ -203,7 +203,7 @@ public class RecordApi {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
             @ApiResponse(responseCode = "404", description = "NOT FOUND"),
             @ApiResponse(responseCode = "409", description = "CONFLICT"),
-            @ApiResponse(responseCode = "422", description = "Required"),
+            @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @PutMapping(value = "/{recordId}/comment")
     public ResponseEntity<ResponseDto<CommentResponseDto>> updateComment(@PathVariable Long recordId,
