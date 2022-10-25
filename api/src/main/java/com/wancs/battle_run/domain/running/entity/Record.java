@@ -6,11 +6,14 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import static com.wancs.battle_run.global.common.InitializationByType.*;
 
 @Getter
 @Entity
@@ -26,42 +29,43 @@ public class Record extends CommonEntity {
 
     private Long runningTime;
 
-    private Float face;
+    private Integer pace;
 
     private Integer calorie;
+
 
     private String imageUrl;
 
     @Builder
     public Record(Long id, Long userId, Float distance, Long runningTime,
-                  Float face, Integer calorie, String imageUrl){
+                  Integer pace, Integer calorie, String imageUrl){
         this.id = id;
         this.userId = userId;
         this.distance = distance;
         this.runningTime = runningTime;
-        this.face = face;
+        this.pace = pace;
         this.calorie = calorie;
         this.imageUrl = imageUrl;
     }
 
     public void changeRecord(UpdateRecordRequestDto requestDto){
-        if(this.distance != requestDto.getDistance()){
+        if(checkFloat(requestDto.getDistance()) > 0){
             this.distance = requestDto.getDistance();
         }
 
-        if(this.calorie != requestDto.getCalorie()){
+        if(checkInteger(requestDto.getCalorie()) > 0){
             this.calorie = requestDto.getCalorie();
         }
 
-        if(this.runningTime != requestDto.getRunningTime()){
+        if(checkLong(requestDto.getRunningTime()) > 0){
             this.runningTime = requestDto.getRunningTime();
         }
 
-        if(this.face != requestDto.getFace()){
-            this.face = requestDto.getFace();
+        if(checkInteger(requestDto.getPace()) > 0){
+            this.pace = requestDto.getPace();
         }
 
-        if(!this.imageUrl.equals(requestDto.getImageUrl())){
+        if(StringUtils.isNotBlank(requestDto.getImageUrl())){
             this.imageUrl = requestDto.getImageUrl();
         }
     }
