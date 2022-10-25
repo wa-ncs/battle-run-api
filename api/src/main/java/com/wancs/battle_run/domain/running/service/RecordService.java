@@ -7,9 +7,12 @@ import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dao.RecordRepository;
+import com.wancs.battle_run.global.common.ResponseDto;
+import com.wancs.battle_run.global.common.StatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,21 +28,16 @@ public class RecordService {
         return recordRepository.findTotalRecordByUserId(userId);
     }
 
-    public Record findByRecord(Long recordId){
+    public Record findById(Long recordId){
         return recordRepository
                 .findById(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("no data"));
+                .orElseThrow(() -> new IllegalArgumentException("존재 하지않는 운동 기록입니다."));
     }
 
     @Transactional
     public Long save(SaveRecordRequestDto requestDto){
-        String face = RecordCommonMethod.getFace(requestDto.getDistance(), requestDto.getRunningTime());
-        requestDto.setFace(face);
-
-        Record record = requestDto.toEntity();
-
         return recordRepository
-                .save(record)
+                .save(requestDto.toEntity())
                 .getId();
     }
 
@@ -50,8 +48,9 @@ public class RecordService {
 
     @Transactional
     public Long update(Long id, UpdateRecordRequestDto requestDto){
-        Record record = this.findByRecord(id);
+        Record record = this.findById(id);
         record.changeRecord(requestDto);
+
         return record.getId();
     }
 }
