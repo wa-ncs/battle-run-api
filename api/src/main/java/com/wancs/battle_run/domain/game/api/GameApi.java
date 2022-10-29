@@ -160,6 +160,8 @@ public class GameApi {
     @PostMapping(value = "/{gameId}/member")
     public ResponseEntity<ResponseDto<GameMemberResponseDto>> gameMemberSave(@RequestBody SaveGameMemberRequestDto requestDto,
                                                                              @PathVariable Long gameId) {
+        //게임방 존재유무 유효성 검사
+        gameService.findById(gameId);
         Long gameMemberId = gameMemberService.gameMemberInsert(gameId, requestDto.getMemberId());
 
         GameMember gameMember = gameMemberService.findById(gameMemberId);
@@ -187,7 +189,10 @@ public class GameApi {
             @ApiResponse(responseCode = "422", description = "REQUIRED"),
     })
     @DeleteMapping(value = "/{gameId}/member/{gameMemberId}")
-    public ResponseEntity<ResponseDto<GameMemberResponseDto>> gameMemberDelete(@PathVariable Long gameMemberId) {
+    public ResponseEntity<ResponseDto<GameMemberResponseDto>> gameMemberDelete(@PathVariable Long gameMemberId,
+                                                                               @PathVariable Long gameId) {
+        //게임방 존재유무 유효성 검사
+        gameService.findById(gameId);
         gameMemberService.gameMemberDelete(gameMemberId);
 
         return ResponseEntity
