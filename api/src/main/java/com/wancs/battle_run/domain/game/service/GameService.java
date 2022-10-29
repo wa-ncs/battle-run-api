@@ -1,6 +1,7 @@
 package com.wancs.battle_run.domain.game.service;
 
 import com.wancs.battle_run.domain.game.dao.GameRepository;
+import com.wancs.battle_run.domain.game.dto.GameList;
 import com.wancs.battle_run.domain.game.dto.request.SaveGameRequestDto;
 import com.wancs.battle_run.domain.game.dto.request.UpdateGameRequestDto;
 import com.wancs.battle_run.domain.game.entity.Game;
@@ -22,15 +23,19 @@ public class GameService {
         return gameRepository.save(requestDto.toEntity()).getId();
     }
 
-    public Game findGameById(Long gameId){
+    public Game findById(Long gameId){
         return gameRepository
                 .findById(gameId)
-                .orElseThrow(() -> new IllegalArgumentException("no data"));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 배틀런입니다."));
+    }
+
+    public GameList findByMemberId(Long memberId){
+        return new GameList(gameRepository.findByMemberId(memberId));
     }
 
     @Transactional
-    public Long update(UpdateGameRequestDto requestDto){
-        Game game = this.findGameById(requestDto.getGameId());
+    public Long update(UpdateGameRequestDto requestDto, Long gameId){
+        Game game = this.findById(gameId);
         game.changeGame(requestDto);
 
         return game.getId();

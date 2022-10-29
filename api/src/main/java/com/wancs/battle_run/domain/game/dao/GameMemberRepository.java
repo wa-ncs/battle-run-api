@@ -12,8 +12,4 @@ import java.util.List;
 public interface GameMemberRepository extends JpaRepository<GameMember,Long> {
 
     List<GameMember> findByGameId(Long gameId);
-
-    @Modifying
-    @Query(value = "delete from Game_Member gm where gm.game_Id = ?1 and member_id in ?2", nativeQuery = true)
-    void deleteGameMemberByGameId(Long gameId, List<Long> deleteList);
 }

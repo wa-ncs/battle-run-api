@@ -26,11 +26,7 @@ public class SaveGameRequestDto {
     @NotNull
     private Timestamp endTime;
 
-    private String role;
-
-    private Long createMemberId;
-
-    private List<Long> gameMembers;
+    private String reward;
 
     public Game toEntity(){
         return Game.builder()
@@ -38,8 +34,7 @@ public class SaveGameRequestDto {
                 .distance(this.distance)
                 .startTime(this.startTime)
                 .endTime(this.endTime)
-                .role(this.role)
-                .createMemberId(this.createMemberId)
+                .reward(this.reward)
                 .build();
     }
 }

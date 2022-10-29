@@ -32,8 +32,6 @@ public class GameMember extends CommonEntity {
     //배틀전 초기값 0
     private Integer ranking;
 
-    //TODO ERD에 인증여부는 뭐지?
-
     @Builder
     public GameMember(Long id, Long memberId, Long gameId, String participationStatus, Integer ranking){
         this.id = id;

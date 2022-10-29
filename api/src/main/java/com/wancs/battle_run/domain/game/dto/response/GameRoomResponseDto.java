@@ -1,22 +1,23 @@
 package com.wancs.battle_run.domain.game.dto.response;
 
 import com.wancs.battle_run.domain.game.entity.Game;
-import com.wancs.battle_run.domain.game.entity.GameMember;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import java.util.List;
 
 @Getter
 public class GameRoomResponseDto {
-    private Game game;
+    private GameResponseDto game;
 
-    private List<GameMember> gameMembers;
+    private List<GameMemberResponseDto> gameMembers;
 
     @Builder
-    public GameRoomResponseDto(Game game, List<GameMember> gameMembers){
-        this.game = game;
+    public GameRoomResponseDto(Game game, List<GameMemberResponseDto> gameMembers){
+        this.game = GameResponseDto.builder()
+                .entity(game)
+                .build();
         this.gameMembers = gameMembers;
     }
 }

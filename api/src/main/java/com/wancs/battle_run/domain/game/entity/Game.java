@@ -31,18 +31,18 @@ public class Game extends CommonEntity {
 
     private Timestamp endTime;
 
-    private String role;
+    private String reward;
 
     private Long createMemberId;
 
     @Builder
-    public Game(Long id, String name, Float distance, Timestamp startTime, Timestamp endTime, String role, Long createMemberId){
+    public Game(Long id, String name, Float distance, Timestamp startTime, Timestamp endTime, String reward, Long createMemberId){
         this.id = id;
         this.name = name;
         this.distance = distance;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.role = role;
+        this.reward = reward;
         this.createMemberId = createMemberId;
     }
 
@@ -55,8 +55,8 @@ public class Game extends CommonEntity {
             this.distance = requestDto.getDistance();
         }
 
-        if(StringUtils.isNotBlank(requestDto.getRole())){
-            this.role = requestDto.getRole();
+        if(StringUtils.isNotBlank(requestDto.getReward())){
+            this.reward = requestDto.getReward();
         }
 
         if(requestDto.getStartTime() != null){
