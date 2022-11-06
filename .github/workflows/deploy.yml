@@ -2,8 +2,8 @@ name: battlerun-springboot-appservice
 
 on:
   push:
-    branchs:
-      - 29
+    branches:
+      - feature/29
   workflow_dispatch:
 
   jobs:
