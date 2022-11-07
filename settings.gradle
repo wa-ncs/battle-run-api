@@ -7,4 +7,7 @@ pluginManagement {
 }
 rootProject.name = 'battle-run-api'
 include 'api'
+project('api').projectDir = new File(settingsDir, './api')
+
 include 'auth'
+project('auth').projectDir = new File(settingsDir, './auth')
