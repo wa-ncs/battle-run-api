@@ -27,6 +27,8 @@ subprojects {
 
     // 각각의 모듈에 공통으로 들어갈 dependency
     dependencies {
+        implementation(project(':api'))
+
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
         implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -38,8 +40,6 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-        implementation(project(':api'))
     }
 
     tasks.named('test') {
