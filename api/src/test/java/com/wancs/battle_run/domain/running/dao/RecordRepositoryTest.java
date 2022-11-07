@@ -29,7 +29,7 @@ public class RecordRepositoryTest {
         recordRepository.deleteAll();
     }
 
-    @Test
+    /*@Test
     public void repository_등록확인(){
         //given
         Float distance = 10.5F;
@@ -72,5 +72,5 @@ public class RecordRepositoryTest {
         //when
         Record records = recordService.findById(recordsId);
         assertThat("20".equals(records.getRunningTime()));
-    }
+    }*/
 }

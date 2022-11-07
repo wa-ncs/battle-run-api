@@ -37,7 +37,7 @@ public class RecordApiControllerTest {
         recordRepository.deleteAll();
     }
 
-    @Test
+   /* @Test
     public void api로_러닝기록등록() throws Exception {
         //given
         Float distance = 10.5F;
@@ -81,5 +81,5 @@ public class RecordApiControllerTest {
 
         List<Record> all = recordRepository.findAll();
         assertThat(all.isEmpty());
-    }
+    }*/
 }
