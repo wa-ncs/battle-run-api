@@ -23,8 +23,7 @@ jobs:
         shell: bash
 
       - name: Build with Gradle
-        run: ./gradlew clean build
-        shell: bash
+        run: ./gradlew
 
 #      - name: Get current time
 #        uses: 1466587594/get-current-time@v2
