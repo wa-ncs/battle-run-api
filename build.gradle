@@ -4,6 +4,10 @@ plugins {
 	id 'java'
 }
 
+springBoot {
+	mainClass =  'com.wancs.ApiApplication'
+}
+
 subprojects {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'io.spring.dependency-management'
