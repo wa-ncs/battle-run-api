@@ -1,7 +1,7 @@
 package com.wancs.battle_run.domain.auth.api;
 
 import com.wancs.battle_run.domain.auth.dto.TokenDto;
-import com.wancs.battle_run.domain.member.application.MemberService;
+import com.wancs.battle_run.domain.auth.service.AuthService;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,7 +23,7 @@ import javax.validation.Valid;
 public class AuthApi {
 
     @Autowired
-    private MemberService memberService;
+    private AuthService authService;
 
     @Operation(summary = "로그인")
     @ApiResponses({
@@ -38,9 +38,28 @@ public class AuthApi {
         return ResponseEntity
                 .ok()
                 .body(ResponseDto.<TokenDto>builder()
-                        .code(StatusEnum.CREATED)
+                        .code(StatusEnum.OK)
                         .message("success")
-                        .data(memberService.doLogin(loginDto))
+                        .data(authService.doLogin(loginDto))
+                        .build());
+    }
+
+    @Operation(summary = "토큰 갱신")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "OK !!"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST !!"),
+            @ApiResponse(responseCode = "401", description = "UNAUTHORIZED !!"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND !!"),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR !!")
+    })
+    @PostMapping(value = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto<TokenDto>> refresh(@RequestBody @Valid TokenDto tokenDto) {
+        return ResponseEntity
+                .ok()
+                .body(ResponseDto.<TokenDto>builder()
+                        .code(StatusEnum.OK)
+                        .message("success")
+                        .data(authService.refresh(tokenDto))
                         .build());
     }
 }

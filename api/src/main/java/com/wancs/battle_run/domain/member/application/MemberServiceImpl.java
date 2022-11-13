@@ -8,7 +8,7 @@ import com.wancs.battle_run.domain.auth.service.AuthService;
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
 import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
 import com.wancs.battle_run.domain.member.entity.Member;
-import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.request.SaveMemberRequestDto;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,43 +24,9 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private final AuthRepository authRepository;
-    private final AuthService authService;
-//    private final PasswordEncoder passwordEncoder;
-
-    public TokenDto doLogin(LoginDto loginDto) {
-        // 회원 정보 조회 ( 회원정보가 없을 시 IllegalArgumentException 발생 )
-        Member member = this.findByEmailAndType(loginDto);
-
-        // 비밀번호 체크 ( 비밀번호가 다를 시 IllegalArgumentException 발생 )
-        this.checkPassword(loginDto, member);
-
-        // TODO : 로그인 할때 토큰을 갱신해주는 것도 좋을거 같음. 의견 필요
-        // 토큰 발급
-        // TokenDto tokenDto = authService.generateToken(member.getId());
-
-        // 토큰 정보 갱신
-        // member.getAuth().updateAccessToken(tokenDto.getAccessToken());
-        // member.getAuth().updateRefreshToken(tokenDto.getRefreshToken());
-
-        return TokenDto.builder()
-                .accessToken(member.getAuth().getAccessToken())
-                .refreshToken(member.getAuth().getRefreshToken())
-                .build();
-    }
-
-    private void checkPassword(LoginDto loginDto, Member member) {
-        if (!loginDto.getPassword().equals(member.getPassword())) {
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
-        }
-        // 시큐리티 설정이 빠져 있어서 임시 제거
-//        if (!passwordEncoder.matches(loginDto.getPassword(), member.getPassword())) {
-//            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
-//        }
-    }
-
     @Transactional
-    public Long save(CreateMemberRequestDto requestDto) {
+    public Long save(SaveMemberRequestDto requestDto) {
+        // TODO : security 설정 후 비밀번호 sha256 encoding 로직 추가 필요
         Member member = requestDto.toEntity();
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -70,14 +36,6 @@ public class MemberServiceImpl implements MemberService {
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId);
     }
-    private Member findByEmailAndType(LoginDto loginDto) {
-        Member findMember = memberRepository.findByEmailAndType(loginDto);
-        if (ObjectUtils.isEmpty(findMember)) {
-            throw new IllegalStateException("존재하지 않는 회원입니다.");
-        }
-        return findMember;
-    }
-
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
         if(!ObjectUtils.isEmpty(findMembers)) {

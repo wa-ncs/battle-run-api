@@ -4,9 +4,13 @@ import com.wancs.battle_run.domain.auth.entity.Auth;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 public class TokenDto {
+    @NotBlank()
     private String accessToken;
+    @NotBlank()
     private String refreshToken;
 
     @Builder

@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateMemberRequestDto {
+public class SaveMemberRequestDto {
     @NotBlank
     private String name;
 

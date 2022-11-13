@@ -12,7 +12,6 @@ public class MemberResponseDto {
     private Long id;
     private String name;
     private String nickName;
-
     private String email;
     private String type;
 

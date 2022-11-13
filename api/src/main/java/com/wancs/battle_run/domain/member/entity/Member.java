@@ -14,22 +14,28 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(indexes = @Index(name="unique_idx_member_email_type", columnList = "email, type", unique = true))
+@Table(name = "member", indexes = @Index(name="unique_idx_member_email_type", columnList = "email, type", unique = true))
 public class Member extends CommonEntity {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
-    @Column(unique=true)
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "nick_name", nullable = false, unique=true)
     private String nickName;
-//    @Column(unique=true)
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
+    @Column(name = "type", nullable = false)
     private String type;
 
+    // TODO : 디비 생성 후에는 관계 제거 필요
     @JsonIgnore
-    @OneToOne(mappedBy = "member", fetch = LAZY)
+    @OneToOne(mappedBy = "member", fetch = LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "auth_id", referencedColumnName = "id")
     private Auth auth;
 
     @Builder

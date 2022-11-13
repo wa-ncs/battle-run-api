@@ -3,10 +3,10 @@ package com.wancs.battle_run.domain.auth.enums;
 import com.wancs.battle_run.domain.member.entity.Member;
 
 public enum LoginType {
-    BATTLE_RUN("BATTLE_RUN"),
-    KAKAO("KAKAO"),
-    GOOGLE("GOOGLE"),
-    FACEBOOK("FACEBOOK");
+    BATTLE_RUN("BATTLE_RUN");
+//    KAKAO("KAKAO"),
+//    GOOGLE("GOOGLE"),
+//    FACEBOOK("FACEBOOK");
 
     public final String type;
     private LoginType(String type) {
