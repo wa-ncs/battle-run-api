@@ -38,11 +38,7 @@ jobs:
         shell: bash
 
       - name: Generate deployment package
-        run: |
-          mkdir -p deploy
-          cp build/libs/*.jar deploy/application.jar
-          cp Procfile deploy/Procfile
-          cd deploy && zip -r deploy${{steps.current-time.outputs.formattedTime}}.zip .
+        run: zip -r deploy${{steps.current-time.outputs.formattedTime}}.zip . -x '*.git*'
 
       - name: Beanstalk Deploy
         uses: einaregilsson/beanstalk-deploy@v20
@@ -53,4 +49,4 @@ jobs:
           environment_name: battleRun-appservice-Environment
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
-          deployment_package: deploy/deploy${{steps.current-time.outputs.formattedTime}}.zip
+          deployment_package: deploy${{steps.current-time.outputs.formattedTime}}.zip
