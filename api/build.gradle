@@ -1,3 +1,6 @@
+bootJar {
+    archiveFileName = 'api-server.jar'
+}
 // Api 모듈에서만 필요한 dependency 추가
 dependencies {
 

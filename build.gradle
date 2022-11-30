@@ -1,7 +1,23 @@
-plugins {
-	id 'org.springframework.boot' version '2.7.2'
-	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
-	id 'java'
+// plugins {
+// 	id 'org.springframework.boot' version '2.7.2'
+// 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+// 	id 'java'
+// }
+buildscript {
+    ext {
+        springBootVersion = '2.7.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.12.RELEASE"
+    }
+}
+
+allprojects {
+
 }
 
 subprojects {
