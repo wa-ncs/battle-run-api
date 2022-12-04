@@ -23,7 +23,7 @@ jobs:
         shell: bash
 
       - name: Build with Gradle
-        run: ./gradlew
+        run: ./gradlew bootJar
         shell: bash
 
       - name: Get current time
