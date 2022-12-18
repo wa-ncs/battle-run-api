@@ -1,5 +1,6 @@
 package com.wancs.battle_run.domain.running.dto;
 
+import com.wancs.battle_run.domain.running.dto.response.RecordListResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Record;
 import lombok.Getter;
@@ -16,9 +17,9 @@ public class RecordList {
         this.records = records;
     }
 
-    public List<RecordResponseDto> toRecordResponseDto(){
-        List<RecordResponseDto> responseDto = this.records.stream()
-                .map(record -> RecordResponseDto.fromEntity(record))
+    public List<RecordListResponseDto> toRecordListResponseDto(){
+        List<RecordListResponseDto> responseDto = this.records.stream()
+                .map(record -> RecordListResponseDto.fromEntity(record))
                 .collect(Collectors.toList());
 
         return responseDto;

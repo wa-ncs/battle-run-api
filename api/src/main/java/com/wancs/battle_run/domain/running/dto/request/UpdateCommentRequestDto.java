@@ -7,18 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-public class UpdateRecordRequestDto {
+public class UpdateCommentRequestDto {
     @NotNull
     private Long id;
 
-    private Float distance;
-
-    private Long runningTime;
-
-    private Integer pace;
-
-    private Integer calorie;
-
-    private String imageUrl;
-
+    private String content;
 }

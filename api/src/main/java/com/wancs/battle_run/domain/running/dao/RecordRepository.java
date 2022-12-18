@@ -13,7 +13,11 @@ public interface RecordRepository extends JpaRepository<Record,Long> {
     public List<Record> findRecordsByUserId(Long userId);
 
     @Query(value = "" +
-            "SELECT SUM(distance) as totalDistance, SUM(running_Time) as totalRunningTime, SUM(calorie) as totalCalorie " +
+            "SELECT " +
+                "SUM(distance) as totalDistance, " +
+                "SUM(running_Time) as totalRunningTime, " +
+                "SUM(calorie) as totalCalorie, " +
+                "SUM(pace) as totalPace " +
             "FROM Record r " +
             "WHERE r.user_Id = ?1", nativeQuery = true)
     public TotalRecordInterface findTotalRecordByUserId(Long userId);
