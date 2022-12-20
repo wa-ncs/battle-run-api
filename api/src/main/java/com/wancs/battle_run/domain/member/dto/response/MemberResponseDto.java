@@ -12,15 +12,16 @@ public class MemberResponseDto {
     private Long id;
     private String name;
     private String nickName;
-
     private String email;
+    private String type;
 
     @Builder
-    public MemberResponseDto(Long id, String name, String nickName, String email){
+    public MemberResponseDto(Long id, String name, String nickName, String email, String type){
         this.id = id;
         this.name = name;
         this.nickName = nickName;
         this.email = email;
+        this.type = type;
     }
 
     public static MemberResponseDto fromEntity(Member member) {
@@ -29,6 +30,7 @@ public class MemberResponseDto {
                 .name(member.getName())
                 .nickName(member.getNickName())
                 .email(member.getEmail())
+                .type(member.getType())
                 .build();
     }
 }

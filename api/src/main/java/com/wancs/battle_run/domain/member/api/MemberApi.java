@@ -3,12 +3,13 @@ package com.wancs.battle_run.domain.member.api;
 import com.wancs.battle_run.domain.member.application.MemberService;
 import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
 import com.wancs.battle_run.domain.member.entity.Member;
-import com.wancs.battle_run.domain.member.dto.request.CreateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.request.SaveMemberRequestDto;
 import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
 import org.springframework.web.bind.annotation.RequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestControllerAdvice
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberApi {
@@ -24,9 +26,9 @@ public class MemberApi {
 
     @PostMapping("")
     public ResponseEntity<ResponseDto<MemberResponseDto>> save(
-            @Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+            @Valid @RequestBody SaveMemberRequestDto saveMemberRequestDto) {
 
-        Long savedId = memberService.save(createMemberRequestDto);
+        Long savedId = memberService.save(saveMemberRequestDto);
         Member findMember = memberService.findById(savedId);
 
         MemberResponseDto memberResponseDto = MemberResponseDto.fromEntity(findMember);
@@ -38,6 +40,7 @@ public class MemberApi {
                         .data(memberResponseDto)
                         .build());
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDto<MemberResponseDto>> update(
             @PathVariable("id") Long id,
