@@ -53,8 +53,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 cp \
+        run: aws s3 cp \
           --region ap-northeast-2 \
           --acl private \ 
 	  ./battle-run-build.zip s3://battle-run-build/
@@ -64,8 +63,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws deploy create-deployment \
+        run: aws deploy create-deployment \
           --application-name battle-run \
           --deployment-group-name battle-run-deploy-group \
           --profile prod
