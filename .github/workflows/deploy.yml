@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: touch ./src/main/resources/env/prod.yml
       - run: echo "${{ secrets.PROD }}" > ./src/main/resources/env/prod.yml
-      - run: cat ./src/main/resources/prod.yml
+      - run: cat ./src/main/resources/env/prod.yml
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew 
