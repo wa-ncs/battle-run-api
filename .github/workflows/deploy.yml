@@ -1,6 +1,7 @@
 # Repo Action 페이지에 나타날 이름 
 name: Spring Boot & Gradle CI/CD
-
+env:
+  S3_BUCKET_NAME: elasticbeanstalk-ap-northeast-2-691389100901
 # Event Trigger
 # master branch에 push 또는 pull request가 발생할 경우 동작
 # branch 단위 외에도, tag나 cron 식 등을 사용할 수 있음
@@ -54,7 +55,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 cp ./battle-run-build.zip s3://battle-run-build/ \
+          aws s3 cp ./battle-run-build.zip s3://${{ env.S3_BUCKET_NAME }}/ \
           --region ap-northeast-2 \
           --acl private
           
