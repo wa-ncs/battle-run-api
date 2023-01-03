@@ -2,6 +2,7 @@
 name: Spring Boot & Gradle CI/CD
 env:
   S3_BUCKET_NAME: elasticbeanstalk-ap-northeast-2-691389100901
+  DEPLOY_PACKAGE_NAME: battle-run-api-${{ github.sha }}.zip
 # Event Trigger
 # master branch에 push 또는 pull request가 발생할 경우 동작
 # branch 단위 외에도, tag나 cron 식 등을 사용할 수 있음
@@ -47,7 +48,7 @@ jobs:
 
       # 압축파일 형태로 전달
       - name: Make zip file
-        run: zip -r -qq -j ./battle-run-build.zip ./deploy
+        run: zip -r -qq -j ./${{ env.DEPLOY_PACKAGE_NAME }} ./deploy
 
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
@@ -55,7 +56,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws s3 cp ./battle-run-build.zip s3://${{ env.S3_BUCKET_NAME }}/ \
+          aws s3 cp ./${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.S3_BUCKET_NAME }}/ \
           --region ap-northeast-2 \
           --acl private
           
@@ -71,7 +72,7 @@ jobs:
           aws deploy create-deployment \
           --application-name battle-run \
           --deployment-group-name battle-run-deploy-group \
-          --profile prod
+          --profile prod \
           --file-exists-behavior OVERWRITE \
-          --s3-location bucket=battle-run-build,bundleType=zip,key=battle-run-build.zip \
+          --s3-location bucket=${{ env.S3_BUCKET_NAME }},bundleType=zip,key=${{ env.DEPLOY_PACKAGE_NAME }} \
           --region ap-northeast-2
