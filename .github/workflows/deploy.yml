@@ -4,7 +4,7 @@ env:
   S3_BUCKET_NAME: elasticbeanstalk-ap-northeast-2-691389100901
   DEPLOY_PACKAGE_NAME: battle-run-api-${{ github.sha }}.zip
   EB_APPLICATION_NAME: Battle-run-api
-  EB_ENVIRONMENT_NAME: Battle-run-api-env # 보통 앱 이름에 -env 형태로 자동 생성
+  EB_ENVIRONMENT_NAME: Battlerunapi-env # 보통 앱 이름에 -env 형태로 자동 생성
 # Event Trigger
 # master branch에 push 또는 pull request가 발생할 경우 동작
 # branch 단위 외에도, tag나 cron 식 등을 사용할 수 있음
