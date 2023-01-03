@@ -81,7 +81,7 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}     # github secrets로 등록한 값 사용
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # github secrets로 등록한 값 사용
           application_name: ${{ env.EB_APPLICATION_NAME }}         # EB application 이름
-          environment_name: ${{ en.vEB_ENVIRONMENT_NAME }}    # EB environment 이름
+          environment_name: ${{ env.EB_ENVIRONMENT_NAME }}    # EB environment 이름
           version_label: github-action-${{steps.current-time.outputs.formattedTime}}
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip
