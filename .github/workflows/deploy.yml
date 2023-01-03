@@ -56,7 +56,7 @@ jobs:
         run: |
           aws s3 cp ./battle-run-build.zip s3://battle-run-build/ \
           --region ap-northeast-2 \
-          --acl private \ 
+          --acl private
           
   deploy:
     runs-on: ubuntu-latest
