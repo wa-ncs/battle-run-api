@@ -18,7 +18,7 @@ spring:
     url: ${database_url}
     username: ${database_name}
     password: ${database_pwd}
-    driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: ${database_driver}
 
   jpa:
     hibernate:
@@ -27,7 +27,7 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-        dialect: org.hibernate.dialect.MariaDB10Dialect
+        dialect: ${database_dialect}
 
 logging:
   level:

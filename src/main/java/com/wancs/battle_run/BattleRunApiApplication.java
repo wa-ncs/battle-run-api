@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @ServletComponentScan
 @SpringBootApplication
-public class AuthApplication {
+public class BattleRunApiApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(AuthApplication.class, args);
+		SpringApplication.run(BattleRunApiApplication.class, args);
 	}
 }
