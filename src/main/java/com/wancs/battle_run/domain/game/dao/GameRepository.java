@@ -13,8 +13,8 @@ public interface GameRepository extends JpaRepository<Game,Long> {
     @Query(value = "" +
             "SELECT " +
                 "G.* " +
-            "FROM GAME G " +
-            "INNER JOIN GAME_MEMBER GM " +
+            "FROM game G " +
+            "INNER JOIN game_member GM " +
                 "ON G.id = GM.game_id " +
             "WHERE 1=1 " +
                 "AND GM.participation_status = 'Y' " +
