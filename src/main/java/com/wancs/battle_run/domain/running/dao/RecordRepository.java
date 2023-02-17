@@ -18,7 +18,7 @@ public interface RecordRepository extends JpaRepository<Record,Long> {
                 "SUM(running_Time) as totalRunningTime, " +
                 "SUM(calorie) as totalCalorie, " +
                 "SUM(pace) as totalPace " +
-            "FROM Record r " +
+            "FROM record r " +
             "WHERE r.user_Id = ?1", nativeQuery = true)
     public TotalRecordInterface findTotalRecordByUserId(Long userId);
 }
