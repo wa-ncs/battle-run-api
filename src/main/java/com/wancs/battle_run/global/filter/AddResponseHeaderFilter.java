@@ -1,12 +1,10 @@
 package com.wancs.battle_run.global.filter;
 
-import org.springframework.http.MediaType;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletResponse;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 @WebFilter("/api/*")
 public class AddResponseHeaderFilter implements Filter {

@@ -1,9 +1,11 @@
 package com.wancs.battle_run.domain.member.dto.request;
 
 import com.wancs.battle_run.domain.member.entity.Member;
-import lombok.*;
-
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor

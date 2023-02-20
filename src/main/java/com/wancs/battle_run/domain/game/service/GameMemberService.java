@@ -2,15 +2,12 @@ package com.wancs.battle_run.domain.game.service;
 
 import com.wancs.battle_run.domain.game.dao.GameMemberRepository;
 import com.wancs.battle_run.domain.game.dto.GameMemberList;
-import com.wancs.battle_run.domain.game.dto.response.GameMemberResponseDto;
-import com.wancs.battle_run.domain.game.dto.response.GameRoomResponseDto;
 import com.wancs.battle_run.domain.game.entity.GameMember;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

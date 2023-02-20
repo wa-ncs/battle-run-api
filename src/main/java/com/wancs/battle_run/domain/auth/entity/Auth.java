@@ -1,12 +1,11 @@
 package com.wancs.battle_run.domain.auth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wancs.battle_run.domain.member.entity.Member;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
-import com.wancs.battle_run.domain.member.entity.Member;
-
-import static javax.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

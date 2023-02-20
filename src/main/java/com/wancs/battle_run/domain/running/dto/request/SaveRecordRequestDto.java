@@ -1,10 +1,13 @@
 package com.wancs.battle_run.domain.running.dto.request;
 
 import com.wancs.battle_run.domain.running.entity.Record;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 
 @Data
 @NoArgsConstructor

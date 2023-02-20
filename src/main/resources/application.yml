@@ -28,8 +28,17 @@ spring:
         show_sql: true
         format_sql: true
         dialect: ${database_dialect}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:80
 
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+    root: trace
+    org.springframework.web: trace
+    org.springframework.security: trace
+    org.springframework.security.oauth2: trace

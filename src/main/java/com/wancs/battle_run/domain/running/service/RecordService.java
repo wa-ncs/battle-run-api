@@ -1,19 +1,14 @@
 package com.wancs.battle_run.domain.running.service;
 
-import com.wancs.battle_run.domain.running.common.RecordCommonMethod;
+import com.wancs.battle_run.domain.running.dao.RecordRepository;
 import com.wancs.battle_run.domain.running.dto.RecordList;
 import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
+import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.entity.Record;
-import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
-import com.wancs.battle_run.domain.running.dao.RecordRepository;
-import com.wancs.battle_run.global.common.ResponseDto;
-import com.wancs.battle_run.global.common.StatusEnum;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class RecordService {
