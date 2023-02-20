@@ -1,13 +1,12 @@
 package com.wancs.battle_run.domain.game.dto.request;
 
 import com.wancs.battle_run.domain.game.entity.Game;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

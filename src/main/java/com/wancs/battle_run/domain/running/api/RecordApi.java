@@ -3,29 +3,27 @@ package com.wancs.battle_run.domain.running.api;
 import com.wancs.battle_run.domain.running.dto.RecordList;
 import com.wancs.battle_run.domain.running.dto.TotalRecordInterface;
 import com.wancs.battle_run.domain.running.dto.request.SaveCommentRequestDto;
+import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateCommentRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateRecordRequestDto;
 import com.wancs.battle_run.domain.running.dto.response.CommentResponseDto;
+import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
 import com.wancs.battle_run.domain.running.dto.response.TotalRecordResponseDto;
 import com.wancs.battle_run.domain.running.entity.Comment;
 import com.wancs.battle_run.domain.running.entity.Record;
 import com.wancs.battle_run.domain.running.service.CommentService;
 import com.wancs.battle_run.domain.running.service.RecordService;
 import com.wancs.battle_run.global.common.ResponseDto;
-import com.wancs.battle_run.domain.running.dto.response.RecordResponseDto;
-import com.wancs.battle_run.domain.running.dto.request.SaveRecordRequestDto;
-
 import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 
 @RestControllerAdvice

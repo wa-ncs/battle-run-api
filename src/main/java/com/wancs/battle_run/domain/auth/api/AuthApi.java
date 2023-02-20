@@ -5,6 +5,7 @@ import com.wancs.battle_run.domain.auth.service.AuthService;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.wancs.battle_run.domain.auth.dto.LoginDto;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")

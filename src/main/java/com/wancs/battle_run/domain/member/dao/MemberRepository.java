@@ -2,10 +2,10 @@ package com.wancs.battle_run.domain.member.dao;
 
 import com.wancs.battle_run.domain.auth.dto.LoginDto;
 import com.wancs.battle_run.domain.member.entity.Member;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository

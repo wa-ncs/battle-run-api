@@ -4,11 +4,11 @@ import com.wancs.battle_run.domain.running.dao.CommentRepository;
 import com.wancs.battle_run.domain.running.dto.request.SaveCommentRequestDto;
 import com.wancs.battle_run.domain.running.dto.request.UpdateCommentRequestDto;
 import com.wancs.battle_run.domain.running.entity.Comment;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
