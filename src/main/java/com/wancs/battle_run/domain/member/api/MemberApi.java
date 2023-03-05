@@ -1,19 +1,18 @@
 package com.wancs.battle_run.domain.member.api;
 
 import com.wancs.battle_run.domain.member.application.MemberService;
-import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
-import com.wancs.battle_run.domain.member.entity.Member;
 import com.wancs.battle_run.domain.member.dto.request.SaveMemberRequestDto;
 import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
+import com.wancs.battle_run.domain.member.entity.Member;
 import com.wancs.battle_run.global.common.ResponseDto;
 import com.wancs.battle_run.global.common.StatusEnum;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 
 @RestControllerAdvice

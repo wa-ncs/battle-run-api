@@ -1,12 +1,9 @@
 package com.wancs.battle_run.domain.auth.dao;
 
 import com.wancs.battle_run.domain.auth.entity.Auth;
-import com.wancs.battle_run.domain.member.entity.Member;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.EntityManager;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
