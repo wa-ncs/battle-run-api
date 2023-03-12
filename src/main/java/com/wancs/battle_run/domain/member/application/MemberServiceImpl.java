@@ -1,16 +1,11 @@
 package com.wancs.battle_run.domain.member.application;
 
-import com.wancs.battle_run.domain.auth.dao.AuthRepository;
-import com.wancs.battle_run.domain.auth.dto.TokenDto;
-import com.wancs.battle_run.domain.auth.dto.LoginDto;
-import com.wancs.battle_run.domain.auth.entity.Auth;
-import com.wancs.battle_run.domain.auth.service.AuthService;
 import com.wancs.battle_run.domain.member.dao.MemberRepository;
 import com.wancs.battle_run.domain.member.dto.request.UpdateMemberRequestDto;
+import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
 import com.wancs.battle_run.domain.member.entity.Member;
 import com.wancs.battle_run.domain.member.dto.request.SaveMemberRequestDto;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -36,6 +31,10 @@ public class MemberServiceImpl implements MemberService {
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId);
     }
+
+    public MemberResponseDto findMemberById(Long memberId) {
+        return memberRepository.findMemberById(memberId);
+    }
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
         if(!ObjectUtils.isEmpty(findMembers)) {
@@ -46,7 +45,7 @@ public class MemberServiceImpl implements MemberService {
 //
     @Transactional
     public Long update(Long id, UpdateMemberRequestDto requestDto) {
-        Member member= memberRepository.findById(id);
+        Member member = memberRepository.findById(id);
         member.changeInfo(requestDto);
         return member.getId();
     }

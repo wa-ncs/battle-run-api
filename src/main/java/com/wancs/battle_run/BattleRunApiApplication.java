@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @PropertySource(value = "classpath:/env/${spring.profiles.active}.yml", encoding = "UTF-8")
 @EnableJpaAuditing
 @ServletComponentScan
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.wancs.battle_run"})
 public class BattleRunApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BattleRunApiApplication.class, args);

@@ -1,7 +1,10 @@
 package com.wancs.battle_run.domain.member.dao;
 
-import com.wancs.battle_run.domain.auth.dto.LoginDto;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.wancs.battle_run.domain.member.dto.response.MemberResponseDto;
 import com.wancs.battle_run.domain.member.entity.Member;
+import com.wancs.battle_run.domain.member.entity.QMember;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,6 +17,9 @@ public class MemberRepository {
 
     //@PersistenceContext
     private final EntityManager em;
+    private final JPAQueryFactory jpaQueryFactory;
+
+    private final QMember qMember = QMember.member;
 
     public Long save(Member member) {
         em.persist(member);
@@ -24,19 +30,19 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
-    public Member findByEmailAndType(LoginDto loginDto) {
-        return em.createQuery(
-                "select m " +
-                        "from Member m " +
-                        "where m.email = :email " +
-                        "and m.type = :type"
-                        , Member.class
+    public MemberResponseDto findMemberById(Long id) {
+        return jpaQueryFactory
+            .select(
+                Projections.constructor(MemberResponseDto.class,
+                    qMember.id
+                    , qMember.name
+                    , qMember.nickName
+                    , qMember.email
                 )
-                .setParameter("email", loginDto.getEmail())
-                .setParameter("type", loginDto.getType())
-                .getResultStream()
-                .findFirst()
-                .orElse(null);
+            )
+            .from(qMember)
+            .where(qMember.id.eq(id))
+            .fetchOne();
     }
 
     public List<Member> findAll() {

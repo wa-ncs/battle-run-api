@@ -10,13 +10,11 @@ import com.wancs.battle_run.global.common.StatusEnum;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@RestControllerAdvice
-@Transactional(readOnly = true)
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 public class MemberApi {
@@ -28,15 +26,13 @@ public class MemberApi {
             @Valid @RequestBody SaveMemberRequestDto saveMemberRequestDto) {
 
         Long savedId = memberService.save(saveMemberRequestDto);
-        Member findMember = memberService.findById(savedId);
 
-        MemberResponseDto memberResponseDto = MemberResponseDto.fromEntity(findMember);
         return ResponseEntity
                 .created(URI.create("/members/"+savedId))
                 .body(ResponseDto.<MemberResponseDto>builder()
                         .code(StatusEnum.CREATED)
                         .message("success")
-                        .data(memberResponseDto)
+                        .data(memberService.findMemberById(savedId))
                         .build());
     }
 
@@ -46,16 +42,13 @@ public class MemberApi {
             @RequestBody @Valid UpdateMemberRequestDto requestDto) {
 
         Long userId = memberService.update(id, requestDto);
-        Member findMember = memberService.findById(userId);
-
-        MemberResponseDto memberResponseDto = MemberResponseDto.fromEntity(findMember);
 
         return ResponseEntity
                 .ok()
                 .body(ResponseDto.<MemberResponseDto>builder()
                         .code(StatusEnum.OK)
                         .message("success")
-                        .data(memberResponseDto)
+                        .data(memberService.findMemberById(userId))
                         .build());
     }
 }

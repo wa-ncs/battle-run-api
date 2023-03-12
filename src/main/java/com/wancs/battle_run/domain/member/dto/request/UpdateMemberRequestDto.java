@@ -10,5 +10,4 @@ public class UpdateMemberRequestDto {
     private String nickName;
     private String email;
     private String password;
-    private String type;
 }
