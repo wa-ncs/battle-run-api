@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 
-@RestControllerAdvice
+@RestController
 @RequestMapping("/api/records")
 public class RecordApi {
     @Autowired
